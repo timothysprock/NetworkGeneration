@@ -92,6 +92,8 @@ try
   
    save('MCFN.mat', 'f', 'Aineq', 'bineq', 'Aeq', 'beq', 'lb', 'ub', 'ctype', 'x')
    
+   fprintf('\n   Cost = %f\n', fval);   
+   
 
    solution = x;
     

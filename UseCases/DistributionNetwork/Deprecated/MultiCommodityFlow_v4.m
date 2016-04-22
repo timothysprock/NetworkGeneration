@@ -1,4 +1,4 @@
-function solution = MultiCommodityFlow_v4(FlowEdge_CommoditySet, FlowEdgeSet, FlowNode_CommoditySet)
+function solution = MultiCommodityFlow_v4(arc_comm_data, arc_data, FlowNode_CommoditySet)
 % Solve Multi-Commodity Flow problem using CPLEX
 
 % Indices:
@@ -19,14 +19,17 @@ function solution = MultiCommodityFlow_v4(FlowEdge_CommoditySet, FlowEdgeSet, Fl
 % arc_data: i j capacity
 % supply_data: k i supply
 
+% Add the CPLEX solver and APIs to the MATLAB working directory
+addpath(genpath('C:\ILOG\CPLEX_Enterprise_Server1262\CPLEX_Studio\cplex\matlab')) %ISYE2015 Vlab
+
 try
   
-    nbflowVar = length(FlowEdge_CommoditySet); %flow var
-    nbfixedVar = length(FlowEdgeSet);
+    nbflowVar = length(arc_comm_data); %flow var
+    nbfixedVar = length(arc_data);
     nbVar = nbflowVar+nbfixedVar;
-    nbArc = length(FlowEdgeSet);
-    nbNodes = max(FlowEdge_CommoditySet(:,1));
-    nbComm = max(FlowEdge_CommoditySet(:,3));
+    nbArc = length(arc_data);
+    nbNodes = max(arc_comm_data(:,1));
+    nbComm = max(arc_comm_data(:,3));
     flowUB = max(FlowNode_CommoditySet(:,3));
     
     %Declare Cplex Input Variables
@@ -35,7 +38,7 @@ try
     ub = ones(nbVar,1);
     
     % Add flow variables
-    f(1:nbflowVar,:) = FlowEdge_CommoditySet(:,4);
+    f(1:nbflowVar,:) = arc_comm_data(:,4);
     ub(1:nbflowVar,:) = flowUB*ones(nbflowVar,1);
     ctype{nbflowVar+nbfixedVar} = [];
     for i = 1:nbflowVar
@@ -44,7 +47,7 @@ try
     
     
     %Add fixed variables
-    f(nbflowVar+1: nbflowVar+nbfixedVar,:) = FlowEdgeSet(:, 4);
+    f(nbflowVar+1: nbflowVar+nbfixedVar,:) = arc_data(:, 4);
     ub(nbflowVar+1: nbflowVar+nbfixedVar,:) = ones(nbfixedVar,1);
     for i = nbflowVar+1:nbflowVar+nbfixedVar
         ctype{i} = 'B';
@@ -59,7 +62,7 @@ try
     % Add Capacity Constraints
     j = 1;
     for i = 1:nbArc
-       arc_comm = find(FlowEdge_CommoditySet(:, 1) == FlowEdgeSet(i,1) & FlowEdge_CommoditySet(:, 2) == FlowEdgeSet(i,2));
+       arc_comm = find(arc_comm_data(:, 1) == arc_data(i,1) & arc_comm_data(:, 2) == arc_data(i,2));
        
        if isempty(arc_comm) ==0
            A(j:j+length(arc_comm)-1,:) = [(i*2-1)*ones(length(arc_comm),1), arc_comm, -1*ones(length(arc_comm),1)];
@@ -68,7 +71,7 @@ try
            j = j+length(arc_comm);
 
            bineq(i*2-1) = 0;
-           A(j,:) = [i*2, nbflowVar+i, -1*FlowEdgeSet(i,3)];
+           A(j,:) = [i*2, nbflowVar+i, -1*arc_data(i,3)];
            j = j+1;
            bineq(i*2) = 0;
        end
@@ -81,9 +84,9 @@ try
     beq = zeros(nbComm*nbNodes,1);
     
     % Add Flow Conservation Constraints
-    A = [(FlowEdge_CommoditySet(:, 3)-1)*nbNodes+FlowEdge_CommoditySet(:,1),[1:length(FlowEdge_CommoditySet)]', 1*ones(length(FlowEdge_CommoditySet),1)];
-    A = [A; [(FlowEdge_CommoditySet(:, 3)-1)*nbNodes+FlowEdge_CommoditySet(:,2),[1:length(FlowEdge_CommoditySet)]', -1*ones(length(FlowEdge_CommoditySet),1)]];
-    beq((FlowEdge_CommoditySet(:, 3)-1)*nbNodes+FlowEdge_CommoditySet(:,1)) = FlowNode_CommoditySet((FlowEdge_CommoditySet(:, 3)-1)*nbNodes+FlowEdge_CommoditySet(:,1), 3);
+    A = [(arc_comm_data(:, 3)-1)*nbNodes+arc_comm_data(:,1),[1:length(arc_comm_data)]', 1*ones(length(arc_comm_data),1)];
+    A = [A; [(arc_comm_data(:, 3)-1)*nbNodes+arc_comm_data(:,2),[1:length(arc_comm_data)]', -1*ones(length(arc_comm_data),1)]];
+    beq((arc_comm_data(:, 3)-1)*nbNodes+arc_comm_data(:,1)) = FlowNode_CommoditySet((arc_comm_data(:, 3)-1)*nbNodes+arc_comm_data(:,1), 3);
 
    Aeq = sparse(A(:,1), A(:,2), A(:,3), nbComm*nbNodes, nbVar);
 
