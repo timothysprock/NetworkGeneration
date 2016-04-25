@@ -57,11 +57,7 @@ classdef FlowNetwork < Network
             hold off;
         end
         
-        function list2Class(FN)
-            %This function should convert the list based flow network into
-            %a class based representation; more or less a constructor for a
-            %flow network from instance data set
-            %TO DO: 
+        function list2Class
         end
     end
     

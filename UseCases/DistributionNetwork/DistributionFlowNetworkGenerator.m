@@ -1,13 +1,19 @@
 function [flownetwork, customerSet, depotSet] = DistributionFlowNetworkGenerator(varargin)
+% DistributionFlowNetworkGenerator generates a random 
+% TO DO: Output a Distribution Network Instance that contains the
+% flownetwork as a reference
 import Classdefs.*
 
+flownetwork = FlowNetwork;
+%distributionNetwork = DistributionNetwork < Network
+
+%% %%% Parameters %%%
     numCustomers = 10;
     numDepot = 5;
     gridSize = 240; %240 minutes square box, guarantee < 8hour RT
     intraDepotDiscount = 0.1;
     commoditydensity = 0.75;
     depotconcentration = 0.25; 
-    flownetwork = FlowNetwork;
     depotFixedCost = 1e6;
 
     %FlowNode = [Node_ID, X, Y]
