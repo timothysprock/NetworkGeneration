@@ -1,11 +1,11 @@
-function [flownetwork, customerSet, depotSet] = DistributionFlowNetworkGenerator(varargin)
+function [flownetwork, distributionNetwork] = DistributionFlowNetworkGenerator(varargin)
 % DistributionFlowNetworkGenerator generates a random 
 % TO DO: Output a Distribution Network Instance that contains the
 % flownetwork as a reference
 import Classdefs.*
 
 flownetwork = FlowNetwork;
-%distributionNetwork = DistributionNetwork < Network
+distributionNetwork = DistributionNetwork;
 
 %% %%% Parameters %%%
     numCustomers = 10;
@@ -60,9 +60,12 @@ flownetwork = FlowNetwork;
         end
     end
 
-    %split depots
+    %split depots & keep track of the mapping
+    depotMapping = zeros(numDepot,2);    
     for ii =1:numDepot
-        depotSet(end+1,:) = [depotSet(end,1)+1, depotSet(ii,2), depotSet(ii,3)];
+        newIndex = depotSet(end,1)+1;
+        depotSet(end+1,:) = [newIndex, depotSet(ii,2), depotSet(ii,3)];
+        depotMapping(ii,:) = [depotSet(ii,1), newIndex];
         FlowEdgeSet(FlowEdgeSet(:,2) == depotSet(ii,1),2) = depotSet(end,1);
         FlowEdgeSet(end+1,:) = [gg, depotSet(ii,1), depotSet(end,1), 1e7, depotFixedCost];
         gg = gg +1;
@@ -117,12 +120,16 @@ flownetwork = FlowNetwork;
 
     %% Display Generated Data
     %scatter([customerSet(:,2); depotSet(:,2)], [customerSet(:,3); depotSet(:,3)])
-    scatter(customerSet(:,2),customerSet(:,3))
-    hold on;
-    scatter(depotSet(:,2),depotSet(:,3), 'filled')
-    hold off;
+%     scatter(customerSet(:,2),customerSet(:,3))
+%     hold on;
+%     scatter(depotSet(:,2),depotSet(:,3), 'filled')
+%     hold off;
     
     FlowNetwork = flownetwork;
+    distributionNetwork.depotSet = depotSet;
+    distributionNetwork.customerSet = customerSet;
+    distributionNetwork.depotMapping = depotMapping;
+    distributionNetwork.depotFixedCost = depotFixedCost;
 
 end
 
