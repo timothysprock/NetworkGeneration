@@ -1,4 +1,4 @@
-classdef Transportation_Channel < Node
+classdef TransportationChannel < Node
     %TRANSPORTATION_CHANNEL Summary of this class goes here
     %   Detailed explanation goes here
     

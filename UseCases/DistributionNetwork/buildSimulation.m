@@ -9,7 +9,7 @@ open(Library);
 simeventslib;
 simulink;
 
-tf1 = NodeFactory('Transportation_Channel');
+tf1 = NodeFactory('TransportationChannel');
 tf1.NodeSet = transportationSet;
 tf1.allocate_edges(edgeSet);
 

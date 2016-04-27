@@ -1,16 +1,17 @@
 Model {
   Name			  "Distribution_Library"
-  Version		  8.6
+  Version		  8.3
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.62"
+    ComputedModelVersion    "1.61"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
+  SaveDefaultBlockParams  on
   ScopeRefreshTime	  0.035000
   OverrideScopeRefreshTime off
   DisableAllScopes	  off
@@ -29,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [0.0, 0.0, 1024.0, 676.0]
+      Location		      [620.0, 52.0, 1533.0, 1620.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[972.0, 501.0]
+	Extents			[1483.0, 1446.0]
 	ZoomFactor		[1.0]
-	Offset			[92.0, 442.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -65,9 +66,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tsprock3"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Apr 27 12:53:23 2016"
-  RTWModifiedTimeStamp	  383662378
-  ModelVersionFormat	  "1.%<AutoIncrement:62>"
+  LastModifiedDate	  "Mon Sep 14 08:44:35 2015"
+  RTWModifiedTimeStamp	  363879924
+  ModelVersionFormat	  "1.%<AutoIncrement:61>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -85,8 +86,6 @@ Model {
   SortedOrder		  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
-  ShowVisualizeInsertedRTB on
-  ShowMarkup		  on
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
@@ -127,6 +126,24 @@ Model {
       PropName		      "logAsSpecifiedByModelsSSIDs_"
     }
   }
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  CovEnableCumulative	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  CovSFcnEnable		  on
+  CovBoundaryAbsTol	  0.000010
+  CovBoundaryRelTol	  0.010000
   ExtModeBatchMode	  off
   ExtModeEnableFloating	  on
   ExtModeTrigType	  "manual"
@@ -148,6 +165,7 @@ Model {
   ExtModeSkipDownloadWhenConnect off
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -155,13 +173,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      7
-      Version		      "1.15.1"
+      Version		      "1.14.2"
       Array {
 	Type			"Handle"
-	Dimension		11
+	Dimension		10
 	Simulink.SolverCC {
 	  $ObjectID		  8
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  StartTime		  "0.0"
 	  StopTime		  "100.0"
 	  AbsTol		  "auto"
@@ -188,8 +206,6 @@ Model {
 	  ZeroCrossControl	  "UseLocalSettings"
 	  ZeroCrossAlgorithm	  "Nonadaptive"
 	  AlgebraicLoopSolver	  "TrustRegion"
-	  SolverInfoToggleStatus  off
-	  IsAutoAppliedInSIP	  off
 	  SolverResetMethod	  "Fast"
 	  PositivePriorityOrder	  off
 	  AutoInsertRateTranBlk	  off
@@ -198,7 +214,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  9
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -217,8 +233,6 @@ Model {
 	  DSMLogging		  on
 	  InspectSignalLogs	  off
 	  VisualizeSimOutput	  on
-	  StreamToWorkspace	  off
-	  StreamVariableName	  "streamout"
 	  SaveTime		  on
 	  ReturnWorkspaceOutputs  off
 	  StateSaveName		  "xout"
@@ -230,11 +244,10 @@ Model {
 	  OutputTimes		  "[]"
 	  ReturnWorkspaceOutputsName "out"
 	  Refine		  "1"
-	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  10
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    8
@@ -251,8 +264,8 @@ Model {
 	  BlockReduction	  on
 	  BooleanDataType	  on
 	  ConditionallyExecuteInputs on
-	  DefaultParameterBehavior "Tunable"
-	  UseDivisionForNetSlopeComputation "off"
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
 	  UseFloatMulNetSlope	  off
 	  DefaultUnderspecifiedDataType	"double"
 	  UseSpecifiedMinMax	  off
@@ -269,13 +282,15 @@ Model {
 	  EnableMemcpy		  on
 	  MemcpyThreshold	  64
 	  PassReuseOutputArgsAs	  "Structure reference"
-	  PassReuseOutputArgsThreshold 12
 	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
 	  LocalBlockOutputs	  on
 	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
 	  StateBitsets		  off
 	  DataBitsets		  off
 	  ActiveStateOutputEnumStorageType "Native Integer"
+	  UseTempVars		  off
 	  ZeroExternalMemoryAtStartup on
 	  ZeroInternalMemoryAtStartup on
 	  InitFltsAndDblsToZero	  off
@@ -286,12 +301,13 @@ Model {
 	  LifeSpan		  "inf"
 	  MaxStackSize		  "Inherit from target"
 	  BufferReusableBoundary  on
-	  SimCompilerOptimization "off"
+	  SimCompilerOptimization "Off"
 	  AccelVerboseBuild	  off
+	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  11
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -318,6 +334,7 @@ Model {
 	  IgnoredZcDiagnostic	  "warning"
 	  SolverPrmCheckMsg	  "warning"
 	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
 	  MultiTaskDSMMsg	  "error"
 	  MultiTaskCondExecSysMsg "error"
 	  MultiTaskRateTransMsg	  "error"
@@ -350,11 +367,12 @@ Model {
 	  BusObjectLabelMismatch  "warning"
 	  RootOutportRequireBusObject "warning"
 	  AssertControl		  "UseLocalSettings"
-	  AllowSymbolicDim	  off
+	  EnableOverflowDetection off
 	  ModelReferenceIOMsg	  "none"
 	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
 	  UnknownTsInhSupMsg	  "warning"
 	  ModelReferenceDataLoggingMessage "warning"
 	  ModelReferenceSymbolNameMessage "warning"
@@ -366,7 +384,7 @@ Model {
 	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
-	  SymbolicDimMinMaxWarning "warning"
+	  LoggingUnavailableSignals "error"
 	  BlockIODiagnostic	  "none"
 	  SFUnusedDataAndEventsDiag "warning"
 	  SFUnexpectedBacktrackingDiag "warning"
@@ -376,12 +394,10 @@ Model {
 	  SFUnconditionalTransitionShadowingDiag "warning"
 	  SFUndirectedBroadcastEventsDiag "warning"
 	  SFTransitionActionBeforeConditionDiag	"warning"
-	  SFOutputUsedAsStateInMooreChartDiag "error"
-	  IntegerSaturationMsg	  "warning"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  12
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
@@ -413,6 +429,7 @@ Model {
 	  TargetIntDivRoundTo	  "Undefined"
 	  TargetEndianess	  "Unspecified"
 	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
 	  TargetPreprocMaxBitsSint 32
 	  TargetPreprocMaxBitsUint 32
 	  TargetHWDeviceType	  "Specified"
@@ -421,9 +438,8 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  13
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
-	  EnableRefExpFcnMdlSchedulingChecks on
 	  CheckModelReferenceTargetMessage "error"
 	  EnableParallelModelReferenceBuilds off
 	  ParallelModelReferenceErrorOnInvalidPool on
@@ -437,9 +453,13 @@ Model {
 	}
 	Simulink.SFSimCC {
 	  $ObjectID		  14
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
+	  SimBlas		  on
 	  SimCtrlC		  on
+	  SimExtrinsic		  on
 	  SimIntegrity		  on
 	  SimUseLocalCustomCode	  off
 	  SimParseCustomCode	  on
@@ -449,7 +469,7 @@ Model {
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
 	  $ObjectID		  15
-	  Version		  "1.15.1"
+	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    9
@@ -470,6 +490,7 @@ Model {
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
 	  PackageGeneratedCodeAndArtifacts off
+	  PackageName		  ""
 	  TemplateMakefile	  "grt_default_tmf"
 	  PostCodeGenCommand	  ""
 	  Description		  ""
@@ -481,8 +502,20 @@ Model {
 	  TLCDebug		  off
 	  TLCCoverage		  off
 	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ProcessScript		  ""
+	  ConfigurationScript	  ""
+	  ConfigAtBuild		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomSourceCode	  ""
+	  CustomHeaderCode	  ""
+	  CustomInclude		  ""
+	  CustomSource		  ""
+	  CustomLibrary		  ""
+	  CustomInitializer	  ""
+	  CustomTerminator	  ""
 	  Toolchain		  "Automatically locate an installed toolchain"
 	  BuildConfiguration	  "Faster Builds"
 	  IncludeHyperlinkInReport off
@@ -496,25 +529,28 @@ Model {
 	  SILDebugging		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
 	  GenerateTraceInfo	  off
 	  GenerateTraceReport	  off
 	  GenerateTraceReportSl	  off
 	  GenerateTraceReportSf	  off
 	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
 	  GenerateWebview	  off
 	  GenerateCodeMetricsReport off
 	  GenerateCodeReplacementReport	off
-	  GenerateMissedCodeReplacementReport off
-	  RTWCompilerOptimization "off"
+	  RTWCompilerOptimization "Off"
 	  RTWCustomCompilerOptimizations ""
 	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  DataInitializer	  ""
 	  SharedConstantsCachingThreshold 1024
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
 	      $ObjectID		      16
-	      Version		      "1.15.1"
+	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
 		Dimension		21
@@ -583,7 +619,7 @@ Model {
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
-	      Version		      "1.15.1"
+	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
 		Dimension		15
@@ -615,7 +651,6 @@ Model {
 	      ERTMultiwordLength      256
 	      MultiwordLength	      2048
 	      GenerateFullHeader      on
-	      InferredTypesCompatibility off
 	      GenerateSampleERTMain   off
 	      GenerateTestInterfaces  off
 	      ModelReferenceCompliant on
@@ -641,16 +676,14 @@ Model {
 	      SupportContinuousTime   on
 	      SupportNonInlinedSFcns  on
 	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
 	      ParenthesesLevel	      "Nominal"
-	      CastingMode	      "Nominal"
 	      MATLABClassNameForMDSCustomization "Simulink.SoftwareTarget.GRTCustomization"
 	      ModelStepFunctionPrototypeControlCompliant off
 	      CPPClassGenCompliant    on
 	      AutosarCompliant	      off
 	      GRTInterface	      off
 	      GenerateAllocFcn	      off
-	      UseToolchainInfoCompliant	on
-	      GenerateSharedConstants on
 	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
@@ -669,36 +702,9 @@ Model {
 	    PropName		    "Components"
 	  }
 	}
-	SlCovCC.ConfigComp {
-	  $ObjectID		  18
-	  Version		  "1.15.1"
-	  Description		  "Simulink Coverage Configuration Component"
-	  Name			  "Simulink Coverage"
-	  RecordCoverage	  off
-	  CovPath		  "/"
-	  CovSaveName		  "covdata"
-	  CovMetricSettings	  "dw"
-	  CovNameIncrementing	  off
-	  CovHtmlReporting	  on
-	  CovForceBlockReductionOff on
-	  CovEnableCumulative	  on
-	  CovSaveCumulativeToWorkspaceVar on
-	  CovSaveSingleToWorkspaceVar on
-	  CovCumulativeVarName	  "covCumulativeData"
-	  CovCumulativeReport	  off
-	  CovReportOnPause	  on
-	  CovModelRefEnable	  "Off"
-	  CovExternalEMLEnable	  off
-	  CovSFcnEnable		  on
-	  CovBoundaryAbsTol	  1e-05
-	  CovBoundaryRelTol	  0.01
-	  CovUseTimeInterval	  off
-	  CovStartTime		  0
-	  CovStopTime		  0
-	}
 	hdlcoderui.hdlcc {
-	  $ObjectID		  19
-	  Version		  "1.15.1"
+	  $ObjectID		  18
+	  Version		  "1.14.2"
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
 	  Array {
@@ -711,8 +717,8 @@ Model {
 	}
 	DES.SimEventsCC {
 	  $BackupClass		  "Simulink.CustomCC"
-	  $ObjectID		  20
-	  Version		  "1.15.1"
+	  $ObjectID		  19
+	  Version		  "1.14.2"
 	  Name			  "SimEvents"
 	  SimEventsActiveTab	  "0"
 	  propIdentEvents	  "0"
@@ -740,7 +746,7 @@ Model {
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    21
+    $ObjectID		    20
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -1038,6 +1044,7 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
+      SFunctionDeploymentMode off
     }
     Block {
       BlockType		      SetAttribute
@@ -1113,9 +1120,9 @@ Model {
       Opaque		      off
       MaskHideContents	      off
       SFBlockType	      "NONE"
+      Variant		      off
       GeneratePreprocessorConditionals off
       ContentPreviewEnabled   off
-      IsWebBlock	      off
     }
     Block {
       BlockType		      Sum
@@ -1172,7 +1179,7 @@ Model {
   }
   System {
     Name		    "Distribution_Library"
-    Location		    [0, 0, 1024, 676]
+    Location		    [620, 52, 2153, 1672]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1196,16 +1203,15 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "[1.000000, 0.501961, 0.501961]"
       RequestExecContextInheritance off
-      Variant		      off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		22
+	$ObjectID		21
 	$ClassName		"Simulink.Mask"
 	Array {
 	  Type			  "Simulink.MaskParameter"
 	  Dimension		  2
 	  Object {
-	    $ObjectID		    23
+	    $ObjectID		    22
 	    Type		    "promote"
 	    Array {
 	      Type		      "Cell"
@@ -1218,7 +1224,7 @@ Model {
 	    Value		    "1000/913"
 	  }
 	  Object {
-	    $ObjectID		    24
+	    $ObjectID		    23
 	    Type		    "promote"
 	    Array {
 	      Type		      "Cell"
@@ -1365,7 +1371,6 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Customer"
 	Location		[805, 308, 1751, 1252]
@@ -1525,7 +1530,6 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
-	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
@@ -1541,7 +1545,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "30"
+	    SIDHighWatermark	    "27"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -1571,23 +1575,22 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "204::29"
+	      SID		      "204::26"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      15
+	      ZOrder		      12
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "204::28"
+	      SID		      "204::25"
 	      Tag		      "Stateflow S-Function Distribution_Library 1"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      14
+	      ZOrder		      11
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
-	      SFunctionDeploymentMode off
 	      EnableBusSupport	      off
 	      Port {
 		PortNumber		2
@@ -1599,9 +1602,9 @@ Model {
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "204::30"
+	      SID		      "204::27"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      16
+	      ZOrder		      13
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -1612,21 +1615,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      13
+	      ZOrder		      7
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      14
+	      ZOrder		      8
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      15
+	      ZOrder		      9
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -1634,7 +1637,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      16
+	      ZOrder		      10
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -1642,14 +1645,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      17
+	      ZOrder		      11
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      18
+	      ZOrder		      12
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -1893,7 +1896,6 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Customer_probflow"
 	Location		[805, 308, 1751, 1252]
@@ -2167,7 +2169,6 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Depot"
 	Location		[620, 52, 2153, 1672]
@@ -2197,7 +2198,6 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
-	  Variant		  off
 	  System {
 	    Name		    "Control: Resource Allocation"
 	    Location		    [227, 345, 838, 789]
@@ -2213,7 +2213,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "57"
+	    SIDHighWatermark	    "55"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "IN_1"
@@ -2459,10 +2459,10 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "130::57"
+	      SID		      "130::42"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      41
+	      ZOrder		      26
 	      Outputs		      "1"
 	      Port {
 		PortNumber		1
@@ -2474,14 +2474,13 @@ Model {
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "130::56"
+	      SID		      "130::41"
 	      Tag		      "Stateflow S-Function Distribution_Library 4"
 	      Ports		      [27, 2]
-	      Position		      [180, 55, 230, 615]
-	      ZOrder		      40
+	      Position		      [180, 90, 230, 650]
+	      ZOrder		      25
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[27 2]"
-	      SFunctionDeploymentMode off
 	      EnableBusSupport	      off
 	      Port {
 		PortNumber		2
@@ -2508,189 +2507,189 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      707
+	      ZOrder		      677
 	      SrcBlock		      "IN_1"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      708
+	      ZOrder		      678
 	      SrcBlock		      "IN_2"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      709
+	      ZOrder		      679
 	      SrcBlock		      "IN_3"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      3
 	    }
 	    Line {
-	      ZOrder		      710
+	      ZOrder		      680
 	      SrcBlock		      "IN_4"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      4
 	    }
 	    Line {
-	      ZOrder		      711
+	      ZOrder		      681
 	      SrcBlock		      "IN_5"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      5
 	    }
 	    Line {
-	      ZOrder		      712
+	      ZOrder		      682
 	      SrcBlock		      "IN_6"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      6
 	    }
 	    Line {
-	      ZOrder		      713
+	      ZOrder		      683
 	      SrcBlock		      "IN_7"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      7
 	    }
 	    Line {
-	      ZOrder		      714
+	      ZOrder		      684
 	      SrcBlock		      "IN_8"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      8
 	    }
 	    Line {
-	      ZOrder		      715
+	      ZOrder		      685
 	      SrcBlock		      "IN_9"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      9
 	    }
 	    Line {
-	      ZOrder		      716
+	      ZOrder		      686
 	      SrcBlock		      "IN_10"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      10
 	    }
 	    Line {
-	      ZOrder		      717
+	      ZOrder		      687
 	      SrcBlock		      "IN_11"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      11
 	    }
 	    Line {
-	      ZOrder		      718
+	      ZOrder		      688
 	      SrcBlock		      "IN_12"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      12
 	    }
 	    Line {
-	      ZOrder		      719
+	      ZOrder		      689
 	      SrcBlock		      "IN_13"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      13
 	    }
 	    Line {
-	      ZOrder		      720
+	      ZOrder		      690
 	      SrcBlock		      "IN_14"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      14
 	    }
 	    Line {
-	      ZOrder		      721
+	      ZOrder		      691
 	      SrcBlock		      "IN_15"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      15
 	    }
 	    Line {
-	      ZOrder		      722
+	      ZOrder		      692
 	      SrcBlock		      "IN_16"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      16
 	    }
 	    Line {
-	      ZOrder		      723
+	      ZOrder		      693
 	      SrcBlock		      "IN_17"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      17
 	    }
 	    Line {
-	      ZOrder		      724
+	      ZOrder		      694
 	      SrcBlock		      "IN_18"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      18
 	    }
 	    Line {
-	      ZOrder		      725
+	      ZOrder		      695
 	      SrcBlock		      "IN_19"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      19
 	    }
 	    Line {
-	      ZOrder		      726
+	      ZOrder		      696
 	      SrcBlock		      "IN_20"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      20
 	    }
 	    Line {
-	      ZOrder		      727
+	      ZOrder		      697
 	      SrcBlock		      "IN_21"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      21
 	    }
 	    Line {
-	      ZOrder		      728
+	      ZOrder		      698
 	      SrcBlock		      "IN_22"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      22
 	    }
 	    Line {
-	      ZOrder		      729
+	      ZOrder		      699
 	      SrcBlock		      "IN_23"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      23
 	    }
 	    Line {
-	      ZOrder		      730
+	      ZOrder		      700
 	      SrcBlock		      "IN_24"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      24
 	    }
 	    Line {
-	      ZOrder		      731
+	      ZOrder		      701
 	      SrcBlock		      "IN_25"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      25
 	    }
 	    Line {
-	      ZOrder		      732
+	      ZOrder		      702
 	      SrcBlock		      "last"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      26
 	    }
 	    Line {
-	      ZOrder		      733
+	      ZOrder		      703
 	      SrcBlock		      "Policy"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -2698,7 +2697,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "OUT_1"
-	      ZOrder		      734
+	      ZOrder		      704
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -2707,7 +2706,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "Release"
-	      ZOrder		      735
+	      ZOrder		      705
 	      Labels		      [0, 0]
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
@@ -2715,7 +2714,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      736
+	      ZOrder		      706
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      DstBlock		      " Demux "
@@ -2838,7 +2837,6 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
-	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
@@ -2854,7 +2852,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "30"
+	    SIDHighWatermark	    "27"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -2884,23 +2882,22 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "97::29"
+	      SID		      "97::26"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      15
+	      ZOrder		      12
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "97::28"
+	      SID		      "97::25"
 	      Tag		      "Stateflow S-Function Distribution_Library 2"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      14
+	      ZOrder		      11
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
-	      SFunctionDeploymentMode off
 	      EnableBusSupport	      off
 	      Port {
 		PortNumber		2
@@ -2912,9 +2909,9 @@ Model {
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "97::30"
+	      SID		      "97::27"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      16
+	      ZOrder		      13
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2925,21 +2922,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      13
+	      ZOrder		      7
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      14
+	      ZOrder		      8
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      15
+	      ZOrder		      9
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -2947,7 +2944,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      16
+	      ZOrder		      10
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -2955,14 +2952,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      17
+	      ZOrder		      11
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      18
+	      ZOrder		      12
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -3094,14 +3091,13 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    25
+	    $ObjectID		    24
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      26
+	      $ObjectID		      25
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "promote"
 	      Array {
@@ -3477,7 +3473,6 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Depot_probflow"
 	Location		[620, 52, 2153, 1672]
@@ -3653,14 +3648,13 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    27
+	    $ObjectID		    26
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      28
+	      $ObjectID		      27
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "promote"
 	      Array {
@@ -3921,7 +3915,6 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
 	Name			"Depot_roundrobin"
 	Location		[620, 52, 2153, 1672]
@@ -4052,7 +4045,6 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
-	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
@@ -4068,7 +4060,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "30"
+	    SIDHighWatermark	    "27"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -4098,23 +4090,22 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "219::29"
+	      SID		      "219::26"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      15
+	      ZOrder		      12
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "219::28"
+	      SID		      "219::25"
 	      Tag		      "Stateflow S-Function Distribution_Library 5"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      14
+	      ZOrder		      11
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
-	      SFunctionDeploymentMode off
 	      EnableBusSupport	      off
 	      Port {
 		PortNumber		2
@@ -4126,9 +4117,9 @@ Model {
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "219::30"
+	      SID		      "219::27"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      16
+	      ZOrder		      13
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -4139,21 +4130,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      13
+	      ZOrder		      7
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      14
+	      ZOrder		      8
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      15
+	      ZOrder		      9
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -4161,7 +4152,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      16
+	      ZOrder		      10
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -4169,14 +4160,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      17
+	      ZOrder		      11
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      18
+	      ZOrder		      12
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -4279,14 +4270,13 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
-	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    29
+	    $ObjectID		    28
 	    $ClassName		    "Simulink.Mask"
 	    Object {
 	      $PropName		      "Parameters"
-	      $ObjectID		      30
+	      $ObjectID		      29
 	      $ClassName	      "Simulink.MaskParameter"
 	      Type		      "promote"
 	      Array {
@@ -4593,7 +4583,7 @@ Model {
     }
     Block {
       BlockType		      SubSystem
-      Name		      "TransportationChannel"
+      Name		      "Transportation_Channel"
       SID		      "164"
       Ports		      [0, 0, 0, 0, 0, 4, 4]
       Position		      [460, 250, 705, 410]
@@ -4603,9 +4593,8 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
-	Name			"TransportationChannel"
+	Name			"Transportation_Channel"
 	Location		[506, 783, 2034, 1880]
 	Open			off
 	ModelBrowserVisibility	off
@@ -5531,7 +5520,648 @@ Model {
     }
     Block {
       BlockType		      SubSystem
-      Name		      "TransportationChannel_noInfo"
+      Name		      "Transportation_Channel_decremented"
+      SID		      "132"
+      Ports		      [0, 0, 0, 0, 0, 2, 4]
+      Position		      [460, 48, 705, 172]
+      ZOrder		      -8
+      BackgroundColor	      "orange"
+      FontName		      "Arial Narrow"
+      FontSize		      18
+      FontWeight	      "bold"
+      RequestExecContextInheritance off
+      System {
+	Name			"Transportation_Channel_decremented"
+	Location		[46, 438, 2376, 1309]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  SID			  "133"
+	  Position		  [365, 555, 395, 585]
+	  ZOrder		  -4
+	  Value			  "97/30"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Discrete Event Signal\nto Workspace"
+	  SID			  "134"
+	  Ports			  [1]
+	  Position		  [1135, 165, 1205, 205]
+	  ZOrder		  -2
+	  LibraryVersion	  "1.30"
+	  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+	  SourceType		  "Discrete Event Signal to Workspace"
+	  VariableName		  "TC1_Status"
+	  MaxDataPoints		  "inf"
+	  Decimation		  "1"
+	  SaveFormat		  "Structure With Time"
+	  isMonitorOnly		  off
+	  isRecordIC		  off
+	}
+	Block {
+	  BlockType		  EnabledGate
+	  Name			  "Enabled Gate"
+	  SID			  "135"
+	  Ports			  [1, 0, 0, 0, 0, 1, 1]
+	  Position		  [720, 25, 805, 80]
+	  ZOrder		  -1
+	  BackgroundColor	  "green"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  EnabledGate
+	  Name			  "Enabled Gate1"
+	  SID			  "136"
+	  Ports			  [1, 0, 0, 0, 0, 1, 1]
+	  Position		  [720, 215, 805, 270]
+	  ZOrder		  -1
+	  BackgroundColor	  "red"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  FIFOQueue
+	  Name			  "FIFO Queue"
+	  SID			  "137"
+	  Ports			  [0, 1, 0, 0, 0, 1, 1]
+	  Position		  [395, 37, 480, 93]
+	  ZOrder		  -1
+	  BackgroundColor	  "green"
+	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
+	  Capacity		  "inf"
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  FIFOQueue
+	  Name			  "FIFO Queue1"
+	  SID			  "138"
+	  Ports			  [0, 1, 0, 0, 0, 1, 1]
+	  Position		  [395, 217, 480, 273]
+	  ZOrder		  -1
+	  BackgroundColor	  "red"
+	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
+	  Capacity		  "inf"
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto"
+	  SID			  "139"
+	  Position		  [1100, 110, 1140, 140]
+	  ZOrder		  -10
+	  GotoTag		  "TC1_Metrics"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  InfiniteServer
+	  Name			  "Infinite Server"
+	  SID			  "142"
+	  Ports			  [1, 0, 0, 0, 0, 1, 1]
+	  Position		  [1150, 252, 1235, 308]
+	  ZOrder		  -1
+	  BackgroundColor	  "red"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  ServiceTimeFrom	  "Signal port t"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  InfiniteServer
+	  Name			  "Infinite Server1"
+	  SID			  "143"
+	  Ports			  [1, 0, 0, 0, 0, 1, 1]
+	  Position		  [1150, 12, 1235, 68]
+	  ZOrder		  -1
+	  BackgroundColor	  "green"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  ServiceTimeFrom	  "Signal port t"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  SID			  "144"
+	  Ports			  [3, 1]
+	  Position		  [900, 106, 905, 144]
+	  ZOrder		  -12
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  NServer
+	  Name			  "N-Server"
+	  SID			  "145"
+	  Ports			  [1, 1, 0, 0, 0, 1, 1]
+	  Position		  [560, 377, 645, 433]
+	  ZOrder		  -2
+	  BackgroundColor	  "green"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  "o1"
+	  NumberOfServers	  "inf"
+	  ServiceTimeFrom	  "Signal port t"
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  NServer
+	  Name			  "N-Server1"
+	  SID			  "146"
+	  Ports			  [1, 2, 0, 0, 0, 1, 1]
+	  Position		  [845, 377, 930, 433]
+	  ZOrder		  -2
+	  BackgroundColor	  "red"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  "o0,o1"
+	  NumberOfServers	  "inf"
+	  ServiceTimeFrom	  "Signal port t"
+	  StatNumberDeparted	  on
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SingleServer
+	  Name			  "Single Server"
+	  SID			  "151"
+	  Ports			  [0, 1, 0, 0, 0, 1, 1]
+	  Position		  [420, 392, 505, 448]
+	  ZOrder		  -3
+	  BackgroundColor	  "green"
+	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
+	  ServiceTime		  "0"
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SingleServer
+	  Name			  "Single Server1"
+	  SID			  "152"
+	  Ports			  [0, 1, 0, 0, 0, 1, 1]
+	  Position		  [695, 392, 780, 448]
+	  ZOrder		  -3
+	  BackgroundColor	  "red"
+	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
+	  ServiceTime		  "0"
+	  StatNumberInBlock	  on
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  SID			  "155"
+	  Ports			  [2, 1]
+	  Position		  [655, 105, 675, 125]
+	  ZOrder		  -18
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum1"
+	  SID			  "156"
+	  Ports			  [2, 1]
+	  Position		  [850, 125, 870, 145]
+	  ZOrder		  -18
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  TimedToEventSignal
+	  Name			  "Timed to\nEvent Signal"
+	  SID			  "157"
+	  Ports			  [1, 1]
+	  Position		  [475, 555, 505, 585]
+	  ZOrder		  -3
+	  InputPortMap		  "u0"
+	  OutputPortMap		  "o0"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_2"
+	  SID			  "158"
+	  Position		  [1365, 273, 1395, 287]
+	  ZOrder		  -21
+	  BlockMirror		  on
+	  BackgroundColor	  "red"
+	  Port			  "1"
+	  Side			  "Right"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_2"
+	  SID			  "159"
+	  Position		  [240, 238, 270, 252]
+	  ZOrder		  -22
+	  BackgroundColor	  "red"
+	  Port			  "2"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_1"
+	  SID			  "160"
+	  Position		  [1350, 33, 1380, 47]
+	  ZOrder		  -23
+	  BlockMirror		  on
+	  BackgroundColor	  "green"
+	  Port			  "3"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_1"
+	  SID			  "161"
+	  Position		  [240, 58, 270, 72]
+	  ZOrder		  -24
+	  BackgroundColor	  "green"
+	  Port			  "4"
+	  Side			  "Right"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "In_Resource_1"
+	  SID			  "162"
+	  Position		  [240, 413, 270, 427]
+	  ZOrder		  -25
+	  Port			  "5"
+	  Side			  "Right"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Out_Resource_1"
+	  SID			  "163"
+	  Position		  [1365, 418, 1395, 432]
+	  ZOrder		  -26
+	  BlockMirror		  on
+	  Port			  "6"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  1
+	  SrcBlock		  "FIFO Queue"
+	  SrcPort		  RConn1
+	  Points		  [0, -15]
+	  DstBlock		  "Enabled Gate"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  2
+	  SrcBlock		  "Enabled Gate1"
+	  SrcPort		  LConn1
+	  Points		  [-210, 0]
+	  DstBlock		  "FIFO Queue1"
+	  DstPort		  RConn1
+	}
+	Line {
+	  ZOrder		  3
+	  SrcBlock		  "FIFO Queue1"
+	  SrcPort		  1
+	  Points		  [180, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  4
+	  SrcBlock		  "FIFO Queue"
+	  SrcPort		  1
+	  Points		  [155, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  5
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  6
+	  SrcBlock		  "Infinite Server"
+	  SrcPort		  LConn1
+	  Points		  [0, -50]
+	  DstBlock		  "Enabled Gate1"
+	  DstPort		  RConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  7
+	  SrcBlock		  "Enabled Gate"
+	  SrcPort		  RConn1
+	  DstBlock		  "Infinite Server1"
+	  DstPort		  LConn1
+	}
+	Line {
+	  ZOrder		  8
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  DstBlock		  "Timed to\nEvent Signal"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  9
+	  SrcBlock		  "Timed to\nEvent Signal"
+	  SrcPort		  1
+	  Points		  [0, -65]
+	  Branch {
+	    ZOrder		    10
+	    Points		    [20, 0; 0, -115; -15, 0]
+	    Branch {
+	      ZOrder		      11
+	      Points		      [0, -35; 530, 0; 0, -65; 90, 0]
+	      DstBlock		      "Infinite Server"
+	      DstPort		      1
+	    }
+	    Branch {
+	      ZOrder		      12
+	      DstBlock		      "N-Server"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    ZOrder		    13
+	    Points		    [0, 10; 120, 0]
+	    Branch {
+	      ZOrder		      14
+	      Points		      [0, 90; 455, 0; 0, -580]
+	      DstBlock		      "Infinite Server1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      ZOrder		      15
+	      Points		      [170, 0; 0, -125]
+	      DstBlock		      "N-Server1"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  16
+	  SrcBlock		  "Single Server"
+	  SrcPort		  RConn1
+	  Points		  [0, -15]
+	  DstBlock		  "N-Server"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  17
+	  SrcBlock		  "N-Server"
+	  SrcPort		  RConn1
+	  DstBlock		  "Single Server1"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  18
+	  SrcBlock		  "Single Server1"
+	  SrcPort		  RConn1
+	  Points		  [35, 0]
+	  DstBlock		  "N-Server1"
+	  DstPort		  LConn1
+	}
+	Line {
+	  ZOrder		  19
+	  SrcBlock		  "N-Server"
+	  SrcPort		  1
+	  Points		  [40, 0; 0, -255]
+	  DstBlock		  "Sum1"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  20
+	  SrcBlock		  "N-Server1"
+	  SrcPort		  2
+	  Points		  [40, 0; 0, -245]
+	  DstBlock		  "Sum1"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  21
+	  SrcBlock		  "Sum1"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  22
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [105, 0]
+	  Branch {
+	    ZOrder		    23
+	    DstBlock		    "Goto"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    24
+	    Points		    [0, 60]
+	    DstBlock		    "Discrete Event Signal\nto Workspace"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  25
+	  SrcBlock		  "N-Server1"
+	  SrcPort		  1
+	  Points		  [0, -230; -50, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  26
+	  SrcBlock		  "In_Resource_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "Single Server"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  27
+	  SrcBlock		  "N-Server1"
+	  SrcPort		  RConn1
+	  DstBlock		  "Out_Resource_1"
+	  DstPort		  RConn1
+	}
+	Line {
+	  ZOrder		  28
+	  SrcBlock		  "Single Server"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -365]
+	  DstBlock		  "Enabled Gate"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  29
+	  SrcBlock		  "Single Server1"
+	  SrcPort		  1
+	  Points		  [0, -110; -85, 0; 0, -65]
+	  DstBlock		  "Enabled Gate1"
+	  DstPort		  1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  30
+	  SrcBlock		  "IN_Shipment_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "FIFO Queue"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  31
+	  SrcBlock		  "IN_Shipment_2"
+	  SrcPort		  RConn1
+	  DstBlock		  "FIFO Queue1"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  32
+	  SrcBlock		  "Infinite Server1"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_1"
+	  DstPort		  RConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  ZOrder		  33
+	  SrcBlock		  "Infinite Server"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_2"
+	  DstPort		  RConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Transportation_Channel_noInfo"
       SID		      "285"
       Ports		      [0, 0, 0, 0, 0, 4, 4]
       Position		      [780, 705, 1025, 865]
@@ -5541,9 +6171,8 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
-      Variant		      off
       System {
-	Name			"TransportationChannel_noInfo"
+	Name			"Transportation_Channel_noInfo"
 	Location		[506, 783, 2034, 1880]
 	Open			off
 	ModelBrowserVisibility	off
@@ -6286,653 +6915,11 @@ Model {
 	}
       }
     }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Transportation_Channel_decremented"
-      SID		      "132"
-      Ports		      [0, 0, 0, 0, 0, 2, 4]
-      Position		      [460, 48, 705, 172]
-      ZOrder		      -8
-      BackgroundColor	      "orange"
-      FontName		      "Arial Narrow"
-      FontSize		      18
-      FontWeight	      "bold"
-      RequestExecContextInheritance off
-      Variant		      off
-      System {
-	Name			"Transportation_Channel_decremented"
-	Location		[46, 438, 2376, 1309]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "133"
-	  Position		  [365, 555, 395, 585]
-	  ZOrder		  -4
-	  Value			  "97/30"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Discrete Event Signal\nto Workspace"
-	  SID			  "134"
-	  Ports			  [1]
-	  Position		  [1135, 165, 1205, 205]
-	  ZOrder		  -2
-	  LibraryVersion	  "1.30"
-	  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
-	  SourceType		  "Discrete Event Signal to Workspace"
-	  VariableName		  "TC1_Status"
-	  MaxDataPoints		  "inf"
-	  Decimation		  "1"
-	  SaveFormat		  "Structure With Time"
-	  isMonitorOnly		  off
-	  isRecordIC		  off
-	}
-	Block {
-	  BlockType		  EnabledGate
-	  Name			  "Enabled Gate"
-	  SID			  "135"
-	  Ports			  [1, 0, 0, 0, 0, 1, 1]
-	  Position		  [720, 25, 805, 80]
-	  ZOrder		  -1
-	  BackgroundColor	  "green"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  ""
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  EnabledGate
-	  Name			  "Enabled Gate1"
-	  SID			  "136"
-	  Ports			  [1, 0, 0, 0, 0, 1, 1]
-	  Position		  [720, 215, 805, 270]
-	  ZOrder		  -1
-	  BackgroundColor	  "red"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  ""
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  FIFOQueue
-	  Name			  "FIFO Queue"
-	  SID			  "137"
-	  Ports			  [0, 1, 0, 0, 0, 1, 1]
-	  Position		  [395, 37, 480, 93]
-	  ZOrder		  -1
-	  BackgroundColor	  "green"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o1"
-	  Capacity		  "inf"
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  FIFOQueue
-	  Name			  "FIFO Queue1"
-	  SID			  "138"
-	  Ports			  [0, 1, 0, 0, 0, 1, 1]
-	  Position		  [395, 217, 480, 273]
-	  ZOrder		  -1
-	  BackgroundColor	  "red"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o1"
-	  Capacity		  "inf"
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  Goto
-	  Name			  "Goto"
-	  SID			  "139"
-	  Position		  [1100, 110, 1140, 140]
-	  ZOrder		  -10
-	  GotoTag		  "TC1_Metrics"
-	  TagVisibility		  "global"
-	}
-	Block {
-	  BlockType		  InfiniteServer
-	  Name			  "Infinite Server"
-	  SID			  "142"
-	  Ports			  [1, 0, 0, 0, 0, 1, 1]
-	  Position		  [1150, 252, 1235, 308]
-	  ZOrder		  -1
-	  BackgroundColor	  "red"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  ""
-	  ServiceTimeFrom	  "Signal port t"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  InfiniteServer
-	  Name			  "Infinite Server1"
-	  SID			  "143"
-	  Ports			  [1, 0, 0, 0, 0, 1, 1]
-	  Position		  [1150, 12, 1235, 68]
-	  ZOrder		  -1
-	  BackgroundColor	  "green"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  ""
-	  ServiceTimeFrom	  "Signal port t"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  Mux
-	  Name			  "Mux"
-	  SID			  "144"
-	  Ports			  [3, 1]
-	  Position		  [900, 106, 905, 144]
-	  ZOrder		  -12
-	  ShowName		  off
-	  Inputs		  "3"
-	  DisplayOption		  "bar"
-	}
-	Block {
-	  BlockType		  NServer
-	  Name			  "N-Server"
-	  SID			  "145"
-	  Ports			  [1, 1, 0, 0, 0, 1, 1]
-	  Position		  [560, 377, 645, 433]
-	  ZOrder		  -2
-	  BackgroundColor	  "green"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  "o1"
-	  NumberOfServers	  "inf"
-	  ServiceTimeFrom	  "Signal port t"
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  NServer
-	  Name			  "N-Server1"
-	  SID			  "146"
-	  Ports			  [1, 2, 0, 0, 0, 1, 1]
-	  Position		  [845, 377, 930, 433]
-	  ZOrder		  -2
-	  BackgroundColor	  "red"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  "o0,o1"
-	  NumberOfServers	  "inf"
-	  ServiceTimeFrom	  "Signal port t"
-	  StatNumberDeparted	  on
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  SingleServer
-	  Name			  "Single Server"
-	  SID			  "151"
-	  Ports			  [0, 1, 0, 0, 0, 1, 1]
-	  Position		  [420, 392, 505, 448]
-	  ZOrder		  -3
-	  BackgroundColor	  "green"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o1"
-	  ServiceTime		  "0"
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  SingleServer
-	  Name			  "Single Server1"
-	  SID			  "152"
-	  Ports			  [0, 1, 0, 0, 0, 1, 1]
-	  Position		  [695, 392, 780, 448]
-	  ZOrder		  -3
-	  BackgroundColor	  "red"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o1"
-	  ServiceTime		  "0"
-	  StatNumberInBlock	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum"
-	  SID			  "155"
-	  Ports			  [2, 1]
-	  Position		  [655, 105, 675, 125]
-	  ZOrder		  -18
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|++"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum1"
-	  SID			  "156"
-	  Ports			  [2, 1]
-	  Position		  [850, 125, 870, 145]
-	  ZOrder		  -18
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "|++"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  TimedToEventSignal
-	  Name			  "Timed to\nEvent Signal"
-	  SID			  "157"
-	  Ports			  [1, 1]
-	  Position		  [475, 555, 505, 585]
-	  ZOrder		  -3
-	  InputPortMap		  "u0"
-	  OutputPortMap		  "o0"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "OUT_Shipment_2"
-	  SID			  "158"
-	  Position		  [1365, 273, 1395, 287]
-	  ZOrder		  -21
-	  BlockMirror		  on
-	  BackgroundColor	  "red"
-	  Port			  "1"
-	  Side			  "Right"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "IN_Shipment_2"
-	  SID			  "159"
-	  Position		  [240, 238, 270, 252]
-	  ZOrder		  -22
-	  BackgroundColor	  "red"
-	  Port			  "2"
-	  Side			  "Left"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "OUT_Shipment_1"
-	  SID			  "160"
-	  Position		  [1350, 33, 1380, 47]
-	  ZOrder		  -23
-	  BlockMirror		  on
-	  BackgroundColor	  "green"
-	  Port			  "3"
-	  Side			  "Left"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "IN_Shipment_1"
-	  SID			  "161"
-	  Position		  [240, 58, 270, 72]
-	  ZOrder		  -24
-	  BackgroundColor	  "green"
-	  Port			  "4"
-	  Side			  "Right"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "In_Resource_1"
-	  SID			  "162"
-	  Position		  [240, 413, 270, 427]
-	  ZOrder		  -25
-	  Port			  "5"
-	  Side			  "Right"
-	}
-	Block {
-	  BlockType		  PMIOPort
-	  Name			  "Out_Resource_1"
-	  SID			  "163"
-	  Position		  [1365, 418, 1395, 432]
-	  ZOrder		  -26
-	  BlockMirror		  on
-	  Port			  "6"
-	  Side			  "Right"
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  1
-	  SrcBlock		  "FIFO Queue"
-	  SrcPort		  RConn1
-	  Points		  [0, -15]
-	  DstBlock		  "Enabled Gate"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  2
-	  SrcBlock		  "Enabled Gate1"
-	  SrcPort		  LConn1
-	  Points		  [-210, 0]
-	  DstBlock		  "FIFO Queue1"
-	  DstPort		  RConn1
-	}
-	Line {
-	  ZOrder		  3
-	  SrcBlock		  "FIFO Queue1"
-	  SrcPort		  1
-	  Points		  [180, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  4
-	  SrcBlock		  "FIFO Queue"
-	  SrcPort		  1
-	  Points		  [155, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  5
-	  SrcBlock		  "Sum"
-	  SrcPort		  1
-	  DstBlock		  "Mux"
-	  DstPort		  1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  6
-	  SrcBlock		  "Infinite Server"
-	  SrcPort		  LConn1
-	  Points		  [0, -50]
-	  DstBlock		  "Enabled Gate1"
-	  DstPort		  RConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  7
-	  SrcBlock		  "Enabled Gate"
-	  SrcPort		  RConn1
-	  DstBlock		  "Infinite Server1"
-	  DstPort		  LConn1
-	}
-	Line {
-	  ZOrder		  8
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  DstBlock		  "Timed to\nEvent Signal"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  9
-	  SrcBlock		  "Timed to\nEvent Signal"
-	  SrcPort		  1
-	  Points		  [0, -65]
-	  Branch {
-	    ZOrder		    10
-	    Points		    [20, 0; 0, -115; -15, 0]
-	    Branch {
-	      ZOrder		      11
-	      Points		      [0, -35; 530, 0; 0, -65; 90, 0]
-	      DstBlock		      "Infinite Server"
-	      DstPort		      1
-	    }
-	    Branch {
-	      ZOrder		      12
-	      DstBlock		      "N-Server"
-	      DstPort		      1
-	    }
-	  }
-	  Branch {
-	    ZOrder		    13
-	    Points		    [0, 10; 120, 0]
-	    Branch {
-	      ZOrder		      14
-	      Points		      [0, 90; 455, 0; 0, -580]
-	      DstBlock		      "Infinite Server1"
-	      DstPort		      1
-	    }
-	    Branch {
-	      ZOrder		      15
-	      Points		      [170, 0; 0, -125]
-	      DstBlock		      "N-Server1"
-	      DstPort		      1
-	    }
-	  }
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  16
-	  SrcBlock		  "Single Server"
-	  SrcPort		  RConn1
-	  Points		  [0, -15]
-	  DstBlock		  "N-Server"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  17
-	  SrcBlock		  "N-Server"
-	  SrcPort		  RConn1
-	  DstBlock		  "Single Server1"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  18
-	  SrcBlock		  "Single Server1"
-	  SrcPort		  RConn1
-	  Points		  [35, 0]
-	  DstBlock		  "N-Server1"
-	  DstPort		  LConn1
-	}
-	Line {
-	  ZOrder		  19
-	  SrcBlock		  "N-Server"
-	  SrcPort		  1
-	  Points		  [40, 0; 0, -255]
-	  DstBlock		  "Sum1"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  20
-	  SrcBlock		  "N-Server1"
-	  SrcPort		  2
-	  Points		  [40, 0; 0, -245]
-	  DstBlock		  "Sum1"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  21
-	  SrcBlock		  "Sum1"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Mux"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  22
-	  SrcBlock		  "Mux"
-	  SrcPort		  1
-	  Points		  [105, 0]
-	  Branch {
-	    ZOrder		    23
-	    DstBlock		    "Goto"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    24
-	    Points		    [0, 60]
-	    DstBlock		    "Discrete Event Signal\nto Workspace"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  ZOrder		  25
-	  SrcBlock		  "N-Server1"
-	  SrcPort		  1
-	  Points		  [0, -230; -50, 0]
-	  DstBlock		  "Mux"
-	  DstPort		  3
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  26
-	  SrcBlock		  "In_Resource_1"
-	  SrcPort		  RConn1
-	  DstBlock		  "Single Server"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  27
-	  SrcBlock		  "N-Server1"
-	  SrcPort		  RConn1
-	  DstBlock		  "Out_Resource_1"
-	  DstPort		  RConn1
-	}
-	Line {
-	  ZOrder		  28
-	  SrcBlock		  "Single Server"
-	  SrcPort		  1
-	  Points		  [30, 0; 0, -365]
-	  DstBlock		  "Enabled Gate"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  29
-	  SrcBlock		  "Single Server1"
-	  SrcPort		  1
-	  Points		  [0, -110; -85, 0; 0, -65]
-	  DstBlock		  "Enabled Gate1"
-	  DstPort		  1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  30
-	  SrcBlock		  "IN_Shipment_1"
-	  SrcPort		  RConn1
-	  DstBlock		  "FIFO Queue"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  31
-	  SrcBlock		  "IN_Shipment_2"
-	  SrcPort		  RConn1
-	  DstBlock		  "FIFO Queue1"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  32
-	  SrcBlock		  "Infinite Server1"
-	  SrcPort		  RConn1
-	  DstBlock		  "OUT_Shipment_1"
-	  DstPort		  RConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  33
-	  SrcBlock		  "Infinite Server"
-	  SrcPort		  RConn1
-	  DstBlock		  "OUT_Shipment_2"
-	  DstPort		  RConn1
-	}
-      }
-    }
   }
 }
 #Finite State Machines
 #
-#   Stateflow 80000006
+#   Stateflow Version 8.1 (R2014a) dated Feb  8 2014, 02:29:12
 #
 #
 Stateflow {
@@ -6942,7 +6929,7 @@ Stateflow {
     created		    "08-Apr-2015 12:06:26"
     isLibrary		    0
     firstTarget		    63
-    sfVersion		    80000006
+    sfVersion		    76014001.002
   }
   chart {
     id			    2
@@ -7280,7 +7267,10 @@ Stateflow {
     firstTransition	    52
     firstJunction	    51
     viewObj		    20
+    visible		    1
     machine		    1
+    subviewS {
+    }
     ssIdHighWaterMark	    35
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
