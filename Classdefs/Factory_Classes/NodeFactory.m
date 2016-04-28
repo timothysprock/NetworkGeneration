@@ -8,16 +8,18 @@ classdef NodeFactory < handle
         Model %Where is the NodeFactory to operate
         Library
         NodeSet@Node %Set of nodes to be generated
-        database %Source of instance data
-        Type
     end
     
     methods (Access = public)
-        function obj = NodeFactory(Type)
-            if nargin > 0
-               obj.Type = Type;
-            else
-                obj.Type = 'Node';
+        function obj = NodeFactory(nodeSet, varargin)
+           if isa(nodeSet, 'Node')
+                obj.NodeSet = nodeSet;
+                
+                %Need to handle cases where multiple edgeSets are input
+                if ~isempty(varargin) && isa(varargin{1}, 'Edge')
+                    obj.allocate_edges(varargin{1})
+                end
+                
             end
         end %Constructor
         
@@ -49,33 +51,13 @@ classdef NodeFactory < handle
         
         function Construct(NF,N)
             N.buildPorts;
+            N.decorateNode;
         end %Role: Director
         
-        function setNodeSet(NF, varargin)
-            % Read and parse the node data out of the source of instance
-            % data
-            if isempty(varargin) == 1  && isempty(NF.database) == 0
-                if strcmp(NF.Type, 'Node') == 0
-                    sqlstring = strcat('SELECT * FROM NodeTable WHERE Type = "', NF.Type, '" ORDER BY NodeTable.Node_ID;');
-                else
-                    sqlstring = 'SELECT * FROM NodeTable ORDER BY NodeTable.Node_ID;';
-                end
-                NF.NodeSet = NF.parse_nodes(sqlstring); 
-            else
-                %varargin(1) = Property Names; varargin(2) = Instance Data
-                Labels = varargin(1);
-                Values = varargin(2);
-                NodeSet(length(Values(:,1))) = eval(NF.Type);
-                
-                for i = 1:length(Values(:,1))
-                    NodeSet(i).Type = NF.Type;
-                    for j = 1:length(Labels)
-                        NodeSet(i).(cell2mat(Labels(j))) = Values(i,j);
-                    end
-                end
-                NF.NodeSet = NodeSet;                
-            end
-         end %set Node Set
+        
+        function setNodeSet(NF, nodeSet)
+
+        end %set Node Set
          
         function allocate_edges(NF, EdgeSet )
             %ALLOCATE_EDGES Summary of this function goes here
@@ -92,6 +74,7 @@ classdef NodeFactory < handle
                 end %for each node
 
         end
+        
     end %Methods
     
     methods (Access = protected)

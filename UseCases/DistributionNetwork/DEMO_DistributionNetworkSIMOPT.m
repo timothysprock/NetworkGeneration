@@ -13,6 +13,7 @@ flowNetworkSet = GenerateFlowNetworkSet( fn1, dn1.depotSet(1:length(dn1.depotSet
 
 distributionNetworkSet(length(flowNetworkSet)) = DistributionNetwork(dn1);
 distributionNetworkSet(1) = dn1;
+clear fn1 dn1;
 
 for ii = 1:length(distributionNetworkSet)
     
@@ -55,61 +56,53 @@ for ii = 1:length(distributionNetworkSet)
 end
 
 %% 3) Build and Run Low-Fidelity Simulations
+networkFactorySet(length(distributionNetworkSet)) = NetworkFactory;
 for ii = 1:length(distributionNetworkSet)
     % Build & Run Simulations
-    %TO DO 4/27/16: Move all of the simulation generation stuff into the
-    %NetworkFactory Class.
-    model = 'Distribution';
-    library = 'Distribution_Library';
-    open(model);
-    warning('off','all');
 
-    delete_model(model);
-    buildSimulation(model, library, ...
-        distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationChannelNodeSet, distributionNetworkSet(ii).edgeSet, distributionNetworkSet(ii).commoditySet);
-    se_randomizeseeds(model, 'Mode', 'All', 'Verbose', 'off');
-    save_system(model);
-    close_system(model,1);
+    networkFactorySet(ii).Model = 'Distribution';
+    networkFactorySet(ii).modelLibrary = 'Distribution_Library';
+    
+     
+    %NodeFactory(NodeSet,(opt)EdgeSet)
+    tf1 = NodeFactory(distributionNetworkSet(ii).transportationChannelNodeSet, distributionNetworkSet(ii).edgeSet);
+    df1 = NodeFactory(distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).edgeSet);
+    cf1 = NodeFactory(distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).edgeSet);
+    ef1=EdgeFactory(distributionNetworkSet(ii).edgeSet);
+
+    networkFactorySet(ii).addNodeFactory([tf1,df1,cf1]);
+    networkFactorySet(ii).addEdgeFactory(ef1);
+    %networkFactorySet(ii).buildSimulation;
+    
+    %TO DO: Transition GA opt to a distributionNetwork based interface
     %distributionNetworkSet(ii).resourceSol = MultiGA_Distribution(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, 1000*ones(length(distributionNetworkSet(ii).depotNodeSet),1), [], 'true');
-    clear MultiGA_Distribution;
+    clear MultiGA_Distribution tf1 df1 cf1 ef1;
     strcat('complete: ', num2str(ii))
 end
 
 %% 4) ReBuild Hi-Fidelity Simulation 
-% This step needs some work since the current simulation builder needs to
-% be reconstructed for each simulation instance (document) that needs to be
-% constructed
 for ii = 1:length(distributionNetworkSet)
-    clear customerNodeSet depotNodeSet TransportationSet EdgeSet tf1 commodity_set
-
+    
+     %TO DO 4/28: currently works, but this needs to be rewritten
+    distributionNetworkSet(ii).commoditySet = buildCommoditySet(flowNetworkSet(ii).FlowEdge_flowTypeAllowed,flowNetworkSet(ii).FlowNode_ConsumptionProduction, flowNetworkSet(ii).commodityFlowSolution);
+   
     for jj = 1:length(distributionNetworkSet(ii).customerNodeSet)
         distributionNetworkSet(ii).customerNodeSet(jj).Type = 'Customer';
+        distributionNetworkSet(ii).customerNodeSet(jj).setCommoditySet(distributionNetworkSet(ii).commoditySet);
     end
     
     for jj = 1:length(distributionNetworkSet(ii).depotNodeSet)
         distributionNetworkSet(ii).depotNodeSet(jj).Type = 'Depot';
     end
     
-    distributionNetworkSet(ii).commoditySet = buildCommoditySet(FlowEdge_CommoditySet,FlowNode_CommoditySet,solution);
-    
 end 
 
 %% 5) Build and Run High-Fidelity Simulations
 for ii = 1:length(distributionNetworkSet)
-    model = 'Distribution';
-    library = 'Distribution_Library';
-    open(model);
-    warning('off','all');
-    delete_model(model);
+    networkFactorySet(ii).buildSimulation;
 
-    buildSimulation(model, library, ...
-        distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).edgeSet, distributionNetworkSet(ii).commoditySet);
-    se_randomizeseeds(model, 'Mode', 'All', 'Verbose', 'off');
-    save_system(model);
-    close_system(model,1);
-
-    distributionNetworkSet(ii).policySol = Distribution_Pareto(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).resourceSol, 1000*ones(length(distributionNetworkSet(ii).resourceSol(1,:)),1));
-    save GenerateFamily.mat;
+    %distributionNetworkSet(ii).policySol = Distribution_Pareto(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).resourceSol, 1000*ones(length(distributionNetworkSet(ii).resourceSol(1,:)),1));
+    %save GenerateFamily.mat;
     strcat('complete: ', num2str(ii))
 end
 

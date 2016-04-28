@@ -6,7 +6,14 @@ classdef Depot < Node
         routingProbability %Placeholder for value until move routing to stategy class
     end
     
-    methods
+    methods (Access = public)
+        function decorateNode(D)
+            D.buildShipmentRouting;
+            D.buildResourceAllocation;
+        end
+    end
+    
+    methods (Access = private)
         function buildResourceAllocation(D)
             try find_system(strcat(D.SimEventsPath, '/Control: Resource Allocation'));
                 resource_destination = findobj(D.OUTEdgeSet, 'EdgeType', 'Resource');

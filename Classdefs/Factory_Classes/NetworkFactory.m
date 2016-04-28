@@ -12,8 +12,13 @@ classdef NetworkFactory < handle
     end
     
     methods
+        function NF = NetworkFactory(varargin)
+            %Add the ability to call the constructor with model and
+            %modellibrary; can't really distinguish betweenn them though.
+        end
         function buildSimulation(NF, varargin)
             open(NF.Model);
+            delete_model(NF.Model);
             open(NF.modelLibrary);
             simeventslib;
             simulink;
@@ -37,17 +42,23 @@ classdef NetworkFactory < handle
         end %end buildSimulation
         
         function addNodeFactory(NF, nodeFactory)
-           if isa(nodeFactory, 'NodeFactory')
-               nodeFactory.Model = NF.Model;
-               nodeFactory.Library = NF.modelLibrary;
-               NF.nodeFactorySet(end+1) = nodeFactory;
-           end
+            for ii = 1:length(nodeFactory)
+               if isa(nodeFactory(ii), 'NodeFactory')
+                   nodeFactory(ii).Model = NF.Model;
+                   nodeFactory(ii).Library = NF.modelLibrary;
+                   NF.nodeFactorySet(end+1) = nodeFactory(ii);
+               else
+                   fprintf('nodeFactory %i is not a valid NodeFactory', ii);
+               end
+            end
         end
         
         function addEdgeFactory(NF, edgeFactory)
-            if isa(edgeFactory, 'EdgeFactory')
-                edgeFactory.Model = NF.Model;
-                NF.edgeFactorySet(end+1) = edgeFactory;
+            for ii = 1:length(edgeFactory)
+                if isa(edgeFactory(ii), 'EdgeFactory')
+                    edgeFactory(ii).Model = NF.Model;
+                    NF.edgeFactorySet(end+1) = edgeFactory(ii);
+                end
             end
         end
     end

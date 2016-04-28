@@ -155,7 +155,15 @@ classdef Node < handle
             end
 
         end %Role: ConcreteBuilder
+        
     end %methods
+    
+    methods (Abstract = true)
+        decorateNode(N) %Add additional functionality based on the specific subclass
+            %e.g. make a normal node a customer node
+            %Can be re-called to change the decoration of a simulation node
+        
+    end
     
 end %classdef
 
