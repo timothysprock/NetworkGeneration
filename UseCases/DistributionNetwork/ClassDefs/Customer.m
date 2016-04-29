@@ -3,34 +3,25 @@ classdef Customer < Node
     %   Detailed explanation goes here
     
     properties
-        commodity_set
+        commoditySet
         routingProbability %Placeholder for value until move routing to stategy class
     end
     
-    methods
-        function buildCommoditySet(C)
-           set_param(strcat(C.SimEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(length(C.commodity_set)));
-
-
-            for i = 1:length(C.commodity_set)
-                position = get_param(strcat(C.SimEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (i-1)*100 0 (i-1)*100];
-                %add the block
-                block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(C.SimEventsPath,'/Commodity_',...
-                    num2str(C.commodity_set(i).ID)), 'Position', position);
-                set_param(block, 'LinkStatus', 'none');
-
-                set_param(block, 'Mean', strcat('2000/', num2str(C.commodity_set(i).Quantity)))
-                %AttributeValue = '[Route]|Origin|Destination|Start'
-                set_param(block, 'AttributeValue', strcat('[',num2str(C.commodity_set(i).Route),']|', num2str(C.commodity_set(i).Origin), '|', num2str(C.commodity_set(i).Destination), '|1'));
-
-                add_line(C.SimEventsPath, strcat('Commodity_', num2str(C.commodity_set(i).ID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(i)));
-            end
+    methods (Access = public)
+        function setCommoditySet(C, commoditySet)
+            C.commoditySet = commoditySet([commoditySet.Origin] ==C.Node_ID);
         end
         
-        function setCommoditySet(C, commodity_set)
-            C.commodity_set = commodity_set([commodity_set.Origin] ==C.Node_ID);
+        function decorateNode(C)
+            C.buildCommoditySet;
+            C.setMetrics;
+            C.buildShipmentRouting;
         end
         
+
+    end
+    
+    methods (Access = private)
         function setMetrics(C)
             set_param(strcat(C.SimEventsPath, '/Shipment_Metrics'), 'VariableName', C.Node_Name);
         end
@@ -73,6 +64,25 @@ classdef Customer < Node
 
                 set_param(strcat(C.SimEventsPath, '/Lookup'), 'Value', lookup_table);
                 set_param(strcat(C.SimEventsPath, '/Node_ID'), 'Value', num2str(C.Node_ID));
+            end
+        end
+        
+        function buildCommoditySet(C)
+           set_param(strcat(C.SimEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(length(C.commoditySet)));
+
+
+            for i = 1:length(C.commoditySet)
+                position = get_param(strcat(C.SimEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (i-1)*100 0 (i-1)*100];
+                %add the block
+                block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(C.SimEventsPath,'/Commodity_',...
+                    num2str(C.commoditySet(i).ID)), 'Position', position);
+                set_param(block, 'LinkStatus', 'none');
+
+                set_param(block, 'Mean', strcat('2000/', num2str(C.commoditySet(i).Quantity)))
+                %AttributeValue = '[Route]|Origin|Destination|Start'
+                set_param(block, 'AttributeValue', strcat('[',num2str(C.commoditySet(i).Route),']|', num2str(C.commoditySet(i).Origin), '|', num2str(C.commoditySet(i).Destination), '|1'));
+
+                add_line(C.SimEventsPath, strcat('Commodity_', num2str(C.commoditySet(i).ID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(i)));
             end
         end
     end

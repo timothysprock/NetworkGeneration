@@ -8,6 +8,12 @@ classdef EdgeFactory < handle
     end
     
     methods
+        function obj = EdgeFactory(edgeSet)
+           if isa(edgeSet, 'Edge')
+              obj.EdgeSet = edgeSet; 
+           end
+        end
+        
         function CreateEdges(EF)
             %For each edge in edgeset, use the add_line method to add a
             %connector line in the simulation
@@ -20,8 +26,7 @@ classdef EdgeFactory < handle
         end %creatEdges
         
         function setEdgeSet(EF)
-           sqlstring = 'SELECT * FROM EdgeTable ORDER BY EdgeTable.Edge_ID;'; 
-           EF.EdgeSet = EF.parse_edges(sqlstring);
+
         end
     end
     

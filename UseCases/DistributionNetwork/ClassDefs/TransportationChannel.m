@@ -1,4 +1,4 @@
-classdef Transportation_Channel < Node
+classdef TransportationChannel < Node
     %TRANSPORTATION_CHANNEL Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -10,15 +10,12 @@ classdef Transportation_Channel < Node
     end
     
     methods
-        function setTravelTime(TC)
-            set_param(strcat(TC.SimEventsPath, '/TravelTime'), 'Value', strcat(num2str(TC.TravelDistance),'/', num2str(TC.TravelRate)));
-        end
-        
-        function buildStatusMetric(TC)
-            try
-                set_param(strcat(TC.SimEventsPath, '/TC_Status'), 'VariableName', strcat(TC.Node_Name,'_Status'));
-                set_param(strcat(TC.SimEventsPath, '/Goto'), 'GotoTag', strcat(TC.Node_Name,'_Status'));
+        function decorateNode(TC)
+            for jj = 1:length(TC.PortSet)
+                TC.PortSet(jj).Set_PortNum;
             end
+                TC.setTravelTime;
+                TC.buildStatusMetric; 
         end
         
         function EdgeSet = createEdgeSet(TC, DepotSet)
@@ -85,6 +82,19 @@ classdef Transportation_Channel < Node
             
             EdgeSet = EdgeSet(1:k-1);
         end
+    end
+    
+    methods (Access = private)
+       function setTravelTime(TC)
+            set_param(strcat(TC.SimEventsPath, '/TravelTime'), 'Value', strcat(num2str(TC.TravelDistance),'/', num2str(TC.TravelRate)));
+        end
+        
+       function buildStatusMetric(TC)
+            try
+                set_param(strcat(TC.SimEventsPath, '/TC_Status'), 'VariableName', strcat(TC.Node_Name,'_Status'));
+                set_param(strcat(TC.SimEventsPath, '/Goto'), 'GotoTag', strcat(TC.Node_Name,'_Status'));
+            end
+        end 
     end
     
 end

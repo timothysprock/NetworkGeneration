@@ -1,31 +1,22 @@
 %% Build and Run Optimizations
-solution = MultiCommodityFlow_v4(FlowEdge_CommoditySet, FlowEdgeSet, FlowNode_CommoditySet);
-FlowEdge_solution = [solution(length(FlowEdge_CommoditySet)+1: end), FlowEdgeSet];
+%[fn1, customerSet, depotSet] = DistributionFlowNetworkGenerator;
+fn1.solveMultiCommodityFlowNetwork;
+flowNetworkSet = GenerateFlowNetworkSet( fn1, depotSet(1:length(depotSet)/2,:), 1e6);
 
-IndexSet = find(FlowEdge_solution(:,1) ==1 & FlowEdge_solution(:,5)>1000);
-MCFN_solution = zeros(length(solution), length(IndexSet)+1);
-MCFN_solution(:,1) = solution;
-for i = 1:length(IndexSet)
-    FlowEdgeSet(IndexSet(:), 4) = 1e6;
-    FlowEdgeSet(IndexSet(i), 4) = inf;
-    MCFN_solution(:, i+1) = MultiCommodityFlow_v4(FlowEdge_CommoditySet, FlowEdgeSet, FlowNode_CommoditySet);
-    fprintf('Complete %d of %d', i+1, length(IndexSet)+1);
-end
 
 Solution = struct('depotSet', [], 'depotNodeSet', [], 'customerSet', [], 'customerNodeSet', [], 'transportationNodeSet', [], 'edgeSet', [], 'transportation_channel_sol', [], 'commoditySet', [], 'resourceSol', [], 'policySol', []);
 %% MCFN to System Model
 %TO DO: Support the generation of an aggregate probabilistic flow simulation.
 
-for i = 1:length(MCFN_solution(1,:))
+for ii = 1:length(flowNetworkSet)
     clear customerNodeSet depotNodeSet TransportationSet EdgeSet tf1 commodity_set
     commoditySet = struct('ID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
     
-    solution = MCFN_solution(:,i);
-    solution=round(solution);
-    FlowEdge_solution = [solution(length(FlowEdge_CommoditySet)+1: end), FlowEdgeSet];
-    transportation_channel_sol = FlowEdge_solution(FlowEdge_solution(:,1) ==1,:);
+    %transportation_channel_sol = Binary Origin Destination grossCapacity flowFixedCost
+    transportation_channel_sol = flowNetworkSet(ii).FlowEdge_Solution(flowNetworkSet(ii).FlowEdge_Solution(:,1) ==1,:);
+    transportation_channel_sol(:,2) = []; %Drop FlowEdgeID for now
     
-    commodity_route = [FlowEdge_CommoditySet(solution(1:length(FlowEdge_CommoditySet))>0,1:4), solution(solution(1:length(FlowEdge_CommoditySet))>0)];
+    commodity_route = flowNetworkSet(ii).commodityFlowSolution(:, 2:end); %drop FlowEdgeID for now
     
     for j = 1:length(transportation_channel_sol)
         transportation_channel_sol(j,6) = sum(commodity_route(commodity_route(:,1) == transportation_channel_sol(j,2) & commodity_route(:,2) == transportation_channel_sol(j,3), 5));
@@ -33,8 +24,9 @@ for i = 1:length(MCFN_solution(1,:))
     end
     
     % Need a more robust way to find selected Depots
-    selectedDepotSet = transportation_channel_sol(transportation_channel_sol(:,5)>1000, 2);
-    depotMapping = transportation_channel_sol(transportation_channel_sol(:,5)>1000, 2:3);
+    %SelectedDepotSetIndex = find(fn1.FlowEdge_Solution(:,1) == 1 & ismember(fn1.FlowEdge_Solution(:,3), depotSet(1:length(depotSet)/2)) ==1);
+    selectedDepotSet = transportation_channel_sol(transportation_channel_sol(:,5)>=depotFixedCost, 2);
+    depotMapping = transportation_channel_sol(transportation_channel_sol(:,5)>=depotFixedCost, 2:3);
 
     for j = 1:length(depotMapping(:,1))
         transportation_channel_sol(transportation_channel_sol(:,2)==depotMapping(j,2),2) = depotMapping(j,1);
@@ -120,18 +112,18 @@ for i = 1:length(MCFN_solution(1,:))
     EdgeSet = EdgeSet(1:k-1);
 
   
-    Solution(i).depotSet = depotSet(selectedDepotSet-numCustomers,:);
-    Solution(i).customerSet = customerSet;
-    Solution(i).transportation_channel_sol = transportation_channel_sol;
-    Solution(i).commoditySet = commoditySet;
-    Solution(i).depotNodeSet = depotNodeSet(selectedDepotSet-numCustomers);
-    Solution(i).customerNodeSet = customerNodeSet;
-    Solution(i).transportationNodeSet = TransportationSet;
-    Solution(i).edgeSet = EdgeSet;
+    Solution(ii).depotSet = depotSet(selectedDepotSet-numCustomers,:);
+    Solution(ii).customerSet = customerSet;
+    Solution(ii).transportation_channel_sol = transportation_channel_sol;
+    Solution(ii).commoditySet = commoditySet;
+    Solution(ii).depotNodeSet = depotNodeSet(selectedDepotSet-numCustomers);
+    Solution(ii).customerNodeSet = customerNodeSet;
+    Solution(ii).transportationNodeSet = TransportationSet;
+    Solution(ii).edgeSet = EdgeSet;
 end
 
 %% Build and Run Low-Fidelity Simulations
-for i = 1:length(Solution)
+for ii = 1:length(Solution)
     % Build & Run Simulations
     model = 'Distribution';
     library = 'Distribution_Library';
@@ -140,18 +132,18 @@ for i = 1:length(Solution)
 
     delete_model(model);
     buildSimulation(model, library, ...
-        Solution(i).customerNodeSet, Solution(i).depotNodeSet, Solution(i).transportationNodeSet, Solution(i).edgeSet, Solution(i).commoditySet);
+        Solution(ii).customerNodeSet, Solution(ii).depotNodeSet, Solution(ii).transportationNodeSet, Solution(ii).edgeSet, Solution(ii).commoditySet);
     se_randomizeseeds(model, 'Mode', 'All', 'Verbose', 'off');
     save_system(model);
     close_system(model,1);
-    solution = MultiGA_Distribution(model, Solution(i).customerNodeSet, Solution(i).depotNodeSet, 1000*ones(length(Solution(i).depotNodeSet),1), [], 'true');
-    Solution(i).resourceSol = solution;
+    solution = MultiGA_Distribution(model, Solution(ii).customerNodeSet, Solution(ii).depotNodeSet, 1000*ones(length(Solution(ii).depotNodeSet),1), [], 'true');
+    Solution(ii).resourceSol = solution;
     clear MultiGA_Distribution;
-    strcat('complete: ', num2str(i))
+    strcat('complete: ', num2str(ii))
 end
 
 %% Control Policy
-for i = 1:length(MCFN_solution(1,:))
+for ii = 1:length(MCFN_solution(1,:))
     clear customerNodeSet depotNodeSet TransportationSet EdgeSet tf1 commodity_set
 
     % Build Customer Set
@@ -178,7 +170,7 @@ for i = 1:length(MCFN_solution(1,:))
         depotNodeSet(j).Type = 'Depot';
     end
     
-    solution = MCFN_solution(:,i);
+    solution = MCFN_solution(:,ii);
     solution=round(solution);
     FlowEdge_solution = [solution(length(FlowEdge_CommoditySet)+1: end), FlowEdgeSet];
     transportation_channel_sol = FlowEdge_solution(FlowEdge_solution(:,1) ==1,:);
@@ -235,18 +227,18 @@ for i = 1:length(MCFN_solution(1,:))
     EdgeSet = EdgeSet(1:k-1);
 
   
-    Solution(i).depotSet = depotSet(selectedDepotSet-numCustomers,:);
-    Solution(i).customerSet = customerSet;
-    Solution(i).transportation_channel_sol = transportation_channel_sol;
-    Solution(i).commoditySet = commoditySet;
-    Solution(i).depotNodeSet = depotNodeSet(selectedDepotSet-numCustomers);
-    Solution(i).customerNodeSet = customerNodeSet;
-    Solution(i).transportationNodeSet = TransportationSet;
-    Solution(i).edgeSet = EdgeSet;
+    Solution(ii).depotSet = depotSet(selectedDepotSet-numCustomers,:);
+    Solution(ii).customerSet = customerSet;
+    Solution(ii).transportation_channel_sol = transportation_channel_sol;
+    Solution(ii).commoditySet = commoditySet;
+    Solution(ii).depotNodeSet = depotNodeSet(selectedDepotSet-numCustomers);
+    Solution(ii).customerNodeSet = customerNodeSet;
+    Solution(ii).transportationNodeSet = TransportationSet;
+    Solution(ii).edgeSet = EdgeSet;
 end 
 
 %% Build and Run High-Fidelity Simulations
-for i = 1:length(Solution)
+for ii = 1:length(Solution)
     model = 'Distribution';
     library = 'Distribution_Library';
     open(model);
@@ -254,14 +246,14 @@ for i = 1:length(Solution)
     delete_model(model);
 
     buildSimulation(model, library, ...
-        Solution(i).customerNodeSet, Solution(i).depotNodeSet, Solution(i).transportationNodeSet, Solution(i).edgeSet, Solution(i).commoditySet);
+        Solution(ii).customerNodeSet, Solution(ii).depotNodeSet, Solution(ii).transportationNodeSet, Solution(ii).edgeSet, Solution(ii).commoditySet);
     se_randomizeseeds(model, 'Mode', 'All', 'Verbose', 'off');
     save_system(model);
     close_system(model,1);
 
-    Solution(i).policySol = Distribution_Pareto(model, Solution(i).customerNodeSet, Solution(i).depotNodeSet, Solution(i).transportationNodeSet, Solution(i).resourceSol, 1000*ones(length(Solution(i).resourceSol(1,:)),1));
+    Solution(ii).policySol = Distribution_Pareto(model, Solution(ii).customerNodeSet, Solution(ii).depotNodeSet, Solution(ii).transportationNodeSet, Solution(ii).resourceSol, 1000*ones(length(Solution(ii).resourceSol(1,:)),1));
     save GenerateFamily.mat;
-    strcat('complete: ', num2str(i))
+    strcat('complete: ', num2str(ii))
 end
 
 %% Pareto Analysis
