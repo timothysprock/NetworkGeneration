@@ -1,32 +1,32 @@
-function [ TransportationChannelSet, EdgeSet ] = mapFlowEdge2TransportationChannel(nodeSet, selectedDepotSet, transportation_channel_sol )
+function [ TransportationChannelSet, EdgeSet ] = mapFlowEdge2TransportationChannel(nodeSet, selectedDepotSet, FlowEdge_Solution )
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 
+    %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
     
-    
-    TransportationChannelSet(length(transportation_channel_sol(1:end-length(selectedDepotSet),1))) = TransportationChannel;
+    TransportationChannelSet(length(FlowEdge_Solution(1:end-length(selectedDepotSet),1))) = TransportationChannel;
     for ii = 1:length(TransportationChannelSet)
-        if transportation_channel_sol(ii,1) == 1
+        if FlowEdge_Solution(ii,1) == 1
                 TransportationChannelSet(ii).Node_ID = ii+length(nodeSet);
                 TransportationChannelSet(ii).Type = 'TransportationChannel_noInfo';
                 TransportationChannelSet(ii).Node_Name = strcat('TransportationChannel_', num2str(ii+length(nodeSet)));
                 TransportationChannelSet(ii).Echelon = 2;
                 TransportationChannelSet(ii).TravelRate = 30;
-                TransportationChannelSet(ii).TravelDistance = sqrt(sum((nodeSet(transportation_channel_sol(ii,2),2:3)-nodeSet(transportation_channel_sol(ii,3),2:3)).^2));
+                TransportationChannelSet(ii).TravelDistance = sqrt(sum((nodeSet(FlowEdge_Solution(ii,3),2:3)-nodeSet(FlowEdge_Solution(ii,4),2:3)).^2));
                 %Set Depot as Source; Depots always have higher Node IDs
-                if nodeSet(transportation_channel_sol(ii,2),1)>nodeSet(transportation_channel_sol(ii,3),1)
-                    TransportationChannelSet(ii).Source = nodeSet(transportation_channel_sol(ii,2),1);
-                    TransportationChannelSet(ii).Target = nodeSet(transportation_channel_sol(ii,3),1);
+                if nodeSet(FlowEdge_Solution(ii,3),1)>nodeSet(FlowEdge_Solution(ii,4),1)
+                    TransportationChannelSet(ii).Source = nodeSet(FlowEdge_Solution(ii,3),1);
+                    TransportationChannelSet(ii).Target = nodeSet(FlowEdge_Solution(ii,4),1);
                 else
-                    TransportationChannelSet(ii).Source = nodeSet(transportation_channel_sol(ii,3),1);
-                    TransportationChannelSet(ii).Target = nodeSet(transportation_channel_sol(ii,2),1);
+                    TransportationChannelSet(ii).Source = nodeSet(FlowEdge_Solution(ii,4),1);
+                    TransportationChannelSet(ii).Target = nodeSet(FlowEdge_Solution(ii,3),1);
                 end
 
                 %Clean-up transportation_channel; set flow edges to 0;
-                match = (transportation_channel_sol(:,2) == transportation_channel_sol(ii,3) & transportation_channel_sol(:,3) == transportation_channel_sol(ii,2));
-                transportation_channel_sol(ii,:)= zeros(1,7);
+                match = (FlowEdge_Solution(:,3) == FlowEdge_Solution(ii,4) & FlowEdge_Solution(:,4) == FlowEdge_Solution(ii,3));
+                FlowEdge_Solution(ii,:)= zeros(1,8);
                 if any(match)
-                    transportation_channel_sol(match==1,:)= zeros(1,7);
+                    FlowEdge_Solution(match==1,:)= zeros(1,8);
                 end
         end
     end

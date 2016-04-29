@@ -1,4 +1,4 @@
-function [ customerNodeSet, commoditySet ] = mapFlowNode2CustomerProbFlow( flowNodeSet, transportation_channel_sol )
+function [ customerNodeSet, commoditySet ] = mapFlowNode2CustomerProbFlow( flowNodeSet, FlowEdge_Solution )
 %MAPFLOWNODE2CUSTOMERPROBFLOW Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,14 +12,14 @@ function [ customerNodeSet, commoditySet ] = mapFlowNode2CustomerProbFlow( flowN
         customerNodeSet(jj).X = flowNodeSet(jj,2);
         customerNodeSet(jj).Y = flowNodeSet(jj,3);
         customerNodeSet(jj).Type = 'Customer_probflow';
-        customerNodeSet(jj).routingProbability = transportation_channel_sol(transportation_channel_sol(:,2) == flowNodeSet(jj,1),7);
+        customerNodeSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == customerNodeSet(jj).Node_ID,8);
     
         %Aggregate the Commodities Into 1 Commodity for Each Customer
         commoditySet(jj).ID = jj;
         commoditySet(jj).Origin = jj;
         commoditySet(jj).Destination = 0;
         commoditySet(jj).Route = 0;
-        commoditySet(jj).Quantity = sum(transportation_channel_sol(transportation_channel_sol(:,2) == flowNodeSet(jj,1), 6));
+        commoditySet(jj).Quantity = sum(FlowEdge_Solution(FlowEdge_Solution(:,3) == customerNodeSet(jj).Node_ID, 7));
         customerNodeSet(jj).setCommoditySet(commoditySet(jj));
     end
 

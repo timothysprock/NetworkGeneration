@@ -8,7 +8,7 @@ classdef FlowNetwork < Network
     FlowNode_ConsumptionProduction %FlowNode Commodity Production/Consumption
     FlowEdge_flowTypeAllowed %FlowEdgeID origin destination commodity flowUnitCost
     FlowEdge_Solution %Binary FlowEdgeID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
-    commodityFlowSolution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
+    commodityFlow_Solution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
     nbArc
     numNodes
     end
@@ -37,7 +37,9 @@ classdef FlowNetwork < Network
                 %1 if edge e is used.
             MCFNsolution = round(MCFNsolution); %NOTE: distribution network requires it 4/25/16
             FN.FlowEdge_Solution = [MCFNsolution(length(FN.FlowEdge_flowTypeAllowed)+1 : end), FN.FlowEdgeSet]; %Should reduce to only selected edges
-            FN.commodityFlowSolution = [FN.FlowEdge_flowTypeAllowed(MCFNsolution(1:length(FN.FlowEdge_flowTypeAllowed))>0,1:5),...
+            %TO DO: Get Ride of FlowEdge_Solution and just push solution
+            %into flow network definition.
+            FN.commodityFlow_Solution = [FN.FlowEdge_flowTypeAllowed(MCFNsolution(1:length(FN.FlowEdge_flowTypeAllowed))>0,1:5),...
                 MCFNsolution(MCFNsolution(1:length(FN.FlowEdge_flowTypeAllowed))>0)];
         end
         

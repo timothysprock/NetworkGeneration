@@ -1,18 +1,20 @@
-function [ commodity_set ] = buildCommoditySet( FlowEdge_CommoditySet, FlowNode_CommoditySet, commodityFlowSolution )
-%COMMODITYROUTE constructs the commodity set as Struct
-%Useful step towards OO construction of Simulation
+function [ commoditySet ] = mapFlowCommodity2Commodity(flowNetwork)
+%mapFlowCommodity2Commodity maps the Flow Network Commodity to Distribution Network Commodity
+%Eventually should transition to mapping to Product with Route being the proces plan
 
 %Initialize the struct (ie specify the classdef)
-commodity_set = struct('ID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
+commoditySet = struct('ID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
+FlowNode_CommoditySet = flowNetwork.FlowNode_ConsumptionProduction;
+commodityFlow_Solution = flowNetwork.commodityFlow_Solution;
 
 %commodityFlowSolution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
 
 for i = 1:max(FlowNode_CommoditySet(:,2))
-   commodity_set(i).ID = i;
-   commodity_set(i).Origin = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)>0,1);
-   commodity_set(i).Destination = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)<0,1);
-   commodity_set(i).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)>0,3);
-   commodity_set(i).Route = buildCommodityRoute(commodityFlowSolution(commodityFlowSolution(:,4) == i,2:6));
+   commoditySet(i).ID = i;
+   commoditySet(i).Origin = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)>0,1);
+   commoditySet(i).Destination = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)<0,1);
+   commoditySet(i).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == i & FlowNode_CommoditySet(:,3)>0,3);
+   commoditySet(i).Route = buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == i,2:6));
    %Should return later to generalize to support production/consumption of
    %each commodity at each node.
 end

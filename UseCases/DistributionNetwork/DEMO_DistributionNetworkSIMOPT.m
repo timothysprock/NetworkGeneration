@@ -7,52 +7,41 @@
 fn1.solveMultiCommodityFlowNetwork;
 flowNetworkSet = GenerateFlowNetworkSet( fn1, dn1.depotSet(1:length(dn1.depotSet)/2,:), dn1.depotFixedCost);
 
-
 %% 2) MAP MCFN Solution to Distribution System Model
-%TO DO: Support the generation of an aggregate probabilistic flow simulation.
-
 distributionNetworkSet(length(flowNetworkSet)) = DistributionNetwork(dn1);
 distributionNetworkSet(1) = dn1;
 clear fn1 dn1;
 
 for ii = 1:length(distributionNetworkSet)
     
-    %transportation_channel_sol = Binary Origin Destination grossCapacity flowFixedCost
-    transportation_channel_sol = flowNetworkSet(ii).FlowEdge_Solution(flowNetworkSet(ii).FlowEdge_Solution(:,1) ==1,:);
-    transportation_channel_sol(:,2) = []; %Drop FlowEdgeID for now
+    %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
+    FlowEdge_Solution = flowNetworkSet(ii).FlowEdge_Solution(flowNetworkSet(ii).FlowEdge_Solution(:,1) ==1,:);
     
-    commodity_route = flowNetworkSet(ii).commodityFlowSolution(:, 2:end); %drop FlowEdgeID for now
+    %commodityFlowSolution := FlowEdgeID origin destination commodity flowUnitCost flowQuantity
+    commodityFlow_Solution = flowNetworkSet(ii).commodityFlow_Solution; 
     
-    for jj = 1:length(transportation_channel_sol)
-        transportation_channel_sol(jj,6) = sum(commodity_route(commodity_route(:,1) == transportation_channel_sol(jj,2) & commodity_route(:,2) == transportation_channel_sol(jj,3), 5));
-        transportation_channel_sol(jj,7) = transportation_channel_sol(jj,6) / sum(commodity_route(commodity_route(:,1) == transportation_channel_sol(jj,2), 5));
+    %Map Commodity Flow Solution to Commodities -- Eventually Map to a
+    %Product with a Process Plan / Route
+    distributionNetworkSet(ii).commoditySet = mapFlowCommodity2Commodity(flowNetworkSet(ii));
+    
+    %Map commodity flow solution to Probabilistic Commodity Flow.
+    for jj = 1:length(FlowEdge_Solution) %For each FlowEdge selected in the solution
+        FlowEdge_Solution(jj,7) = sum(commodityFlow_Solution(commodityFlow_Solution(:,1) == FlowEdge_Solution(jj,2), 6));
+        FlowEdge_Solution(jj,8) = FlowEdge_Solution(jj,7) / sum(commodityFlow_Solution(commodityFlow_Solution(:,2) == FlowEdge_Solution(jj,3), 6));
     end
+    clear commodityFlow_Solution;
     
-    % Isolate the Depots Selected by the Optimization
-    depotMapping = distributionNetworkSet(ii).depotMapping;
-    [LIA, LOCB] = ismember(depotMapping, transportation_channel_sol(:, 2:3), 'rows');
-    selectedDepotSet = transportation_channel_sol(LOCB(LIA), 2);
-    clear LIA LOCB;
-    
-
-    for jj = 1:length(depotMapping(:,1))
-        transportation_channel_sol(transportation_channel_sol(:,2)==depotMapping(jj,2),2) = depotMapping(jj,1);
-    end
-    distributionNetworkSet(ii).transportationChannelSolution = transportation_channel_sol;
-    clear depotMapping;
-
     %map FlowNode to Customer Node (Probabilistic Flow)
-    [distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).commoditySet] = mapFlowNode2CustomerProbFlow(distributionNetworkSet(ii).customerSet, transportation_channel_sol);
+    [distributionNetworkSet(ii).customerNodeSet] = mapFlowNode2CustomerProbFlow(distributionNetworkSet(ii).customerSet, FlowEdge_Solution);
 
-    %ap FlowNode to Depot Node (Probabilistic Flow)
-    [ depotNodeSet ] = mapFlowNode2DepotProbFlow( distributionNetworkSet(ii).depotSet, transportation_channel_sol );
-    distributionNetworkSet(ii).depotNodeSet = depotNodeSet(ismember([depotNodeSet.Node_ID], selectedDepotSet));
-    clear depotNodeSet;
+    %Map FlowNode to Depot Node (Probabilistic Flow)
+    [ distributionNetworkSet(ii).depotNodeSet, selectedDepotSet, FlowEdge_Solution ] = mapFlowNode2DepotProbFlow( distributionNetworkSet(ii).depotSet, FlowEdge_Solution, distributionNetworkSet(ii).depotMapping );
 
     % Add Transportation Channels for Flow Edges
-    [ distributionNetworkSet(ii).transportationChannelNodeSet, distributionNetworkSet(ii).edgeSet ] = mapFlowEdge2TransportationChannel([distributionNetworkSet(ii).customerSet; distributionNetworkSet(ii).depotSet], selectedDepotSet, transportation_channel_sol );
+    [ distributionNetworkSet(ii).transportationChannelNodeSet, distributionNetworkSet(ii).edgeSet ] = mapFlowEdge2TransportationChannel([distributionNetworkSet(ii).customerSet; distributionNetworkSet(ii).depotSet], selectedDepotSet, FlowEdge_Solution );
+    flowNetworkSet(ii).FlowEdge_Solution = FlowEdge_Solution;
     
-    clear transportation_channel_sol selectedDepotSet;
+    clear selectedDepotSet FlowEdge_Solution commodityFlowSolution;
 end
 
 %% 3) Build and Run Low-Fidelity Simulations
@@ -72,7 +61,7 @@ for ii = 1:length(distributionNetworkSet)
 
     networkFactorySet(ii).addNodeFactory([tf1,df1,cf1]);
     networkFactorySet(ii).addEdgeFactory(ef1);
-    %networkFactorySet(ii).buildSimulation;
+    networkFactorySet(ii).buildSimulation;
     
     %TO DO: Transition GA opt to a distributionNetwork based interface
     %distributionNetworkSet(ii).resourceSol = MultiGA_Distribution(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, 1000*ones(length(distributionNetworkSet(ii).depotNodeSet),1), [], 'true');
@@ -82,12 +71,9 @@ end
 
 %% 4) ReBuild Hi-Fidelity Simulation 
 for ii = 1:length(distributionNetworkSet)
-    
-     %TO DO 4/28: currently works, but this needs to be rewritten
-    distributionNetworkSet(ii).commoditySet = buildCommoditySet(flowNetworkSet(ii).FlowEdge_flowTypeAllowed,flowNetworkSet(ii).FlowNode_ConsumptionProduction, flowNetworkSet(ii).commodityFlowSolution);
-   
+       
     for jj = 1:length(distributionNetworkSet(ii).customerNodeSet)
-        distributionNetworkSet(ii).customerNodeSet(jj).Type = 'Customer';
+        distributionNetworkSet(ii).customerNodeSet(jj).Type = 'Customer'; %Change Resolution from Probabilistic to Complete
         distributionNetworkSet(ii).customerNodeSet(jj).setCommoditySet(distributionNetworkSet(ii).commoditySet);
     end
     

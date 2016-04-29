@@ -78,45 +78,47 @@ distributionNetwork = DistributionNetwork;
     numNodes = length(nodeSet);
 
     %% Generate Production/Consumption Data
-    %FlowNode_CommoditySet: FlowNode Commodity Production/Consumption
-    FlowNode_CommoditySet = zeros(numNodes*numCommodity, 3);
+    %FlowNode_ConsumptionProduction := FlowNodeID Commodity Production/Consumption
+    FlowNode_ConsumptionProduction = zeros(numNodes*numCommodity, 3);
     kk = 1;
     for ii = 1:numCustomers
         for jj = 1:numCustomers
             if eq(ii,jj)==0
                 if rand(1) < commoditydensity
                     supply = randi(500);   
-                    FlowNode_CommoditySet(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,1) = 1:numNodes;
-                    FlowNode_CommoditySet(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,2) = kk;
-                    FlowNode_CommoditySet(numNodes*(kk-1)+ii,3) = supply;
-                    FlowNode_CommoditySet(numNodes*(kk-1)+jj,3) = -1*supply;
+                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,1) = 1:numNodes;
+                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,2) = kk;
+                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+ii,3) = supply;
+                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+jj,3) = -1*supply;
                     kk = kk+1;
                 end
             end
         end
     end
-    %FlowNode_CommoditySet( ~any(FlowNode_CommoditySet,2), : ) = [];  %drop extra rows
-    flownetwork.FlowNode_ConsumptionProduction = FlowNode_CommoditySet;
+
+    flownetwork.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
+    
+    
     %% Generate flowTypeAllowed and flowUnitCost for each FlowEdge
     % FlowEdge_CommoditySet: FlowEdgeID origin destination k flowUnitCost
-    FlowEdge_CommoditySet = zeros(nbArc*numCommodity, 5);
+    FlowEdge_flowTypeAllowed = zeros(nbArc*numCommodity, 5);
     for kk = 1:numCommodity
-            FlowEdge_CommoditySet((kk-1)*nbArc+1:kk*nbArc,:) = [FlowEdgeSet(:,1:3),kk*ones(nbArc,1),sqrt((nodeSet(FlowEdgeSet(:,2),2)-nodeSet(FlowEdgeSet(:,3),2)).^2 + (nodeSet(FlowEdgeSet(:,2),3)-nodeSet(FlowEdgeSet(:,3),3)).^2)];
+            FlowEdge_flowTypeAllowed((kk-1)*nbArc+1:kk*nbArc,:) = [FlowEdgeSet(:,1:3),kk*ones(nbArc,1),sqrt((nodeSet(FlowEdgeSet(:,2),2)-nodeSet(FlowEdgeSet(:,3),2)).^2 + (nodeSet(FlowEdgeSet(:,2),3)-nodeSet(FlowEdgeSet(:,3),3)).^2)];
     end
 
 
-    FlowEdge_CommoditySet(FlowEdge_CommoditySet(:,2)>numCustomers & FlowEdge_CommoditySet(:,3)>numCustomers,5) = intraDepotDiscount*FlowEdge_CommoditySet(FlowEdge_CommoditySet(:,2)>numCustomers & FlowEdge_CommoditySet(:,3)>numCustomers,5);
+    FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5) = intraDepotDiscount*FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5);
 
     %% Cleanup: Remove Customer to Customer Edges
 
-    for jj= 1:length(FlowEdge_CommoditySet)
-        if le(FlowEdge_CommoditySet(jj,2), numCustomers) && le(FlowEdge_CommoditySet(jj,3), numCustomers)
-           FlowEdge_CommoditySet(jj,5) = inf; 
+    for jj= 1:length(FlowEdge_flowTypeAllowed)
+        if le(FlowEdge_flowTypeAllowed(jj,2), numCustomers) && le(FlowEdge_flowTypeAllowed(jj,3), numCustomers)
+           FlowEdge_flowTypeAllowed(jj,5) = inf; 
         end
     end
-    FlowEdge_CommoditySet = FlowEdge_CommoditySet(FlowEdge_CommoditySet(:,5)<inf,:);
+    FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,5)<inf,:);
 
-    flownetwork.FlowEdge_flowTypeAllowed = FlowEdge_CommoditySet;
+    flownetwork.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
 
     %% Display Generated Data
     %scatter([customerSet(:,2); depotSet(:,2)], [customerSet(:,3); depotSet(:,3)])
