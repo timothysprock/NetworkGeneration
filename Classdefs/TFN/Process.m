@@ -5,9 +5,9 @@ classdef Process < Node
     
     properties
         %Hierarchical Organization
-        Workstation_ID
-        Workstation@Workstation
-        %Structural Parameters
+        DELS_ID
+        DELS@DELS
+        %Behavioral Parameters %Abstraction of PPRF
         ServerCount
         StorageCapacity
         ProcessTime_Mean
