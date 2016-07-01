@@ -3,7 +3,7 @@ classdef ProcessNetwork < Network
     %   Detailed explanation goes here
     
     properties
-        SequenceDependencySet@SequenceDependency
+        SequenceDependencySet@SequencingDependency
         ProcessSet@Process
         SequenceDependencyMatrix
         ProbabilityTransitionMatrix
@@ -11,6 +11,10 @@ classdef ProcessNetwork < Network
     
     methods
         function network2Matrix(PN)
+        end
+        
+        function matrix2Network(PN)
+            
         end
     end
     
