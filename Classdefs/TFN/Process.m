@@ -4,10 +4,12 @@ classdef Process < Node
     %   analysis use cases
     
     properties
+        incomingSeqDep@SequencingDependency
+        outgoingSeqDep@SequencingDependency
         %Hierarchical Organization
-        Workstation_ID
-        Workstation@Workstation
-        %Structural Parameters
+        parentProcessNetwork@ProcessNetwork
+        nestedProcessNetwork@ProcessNetwork
+        %Behavioral Parameters %Abstraction of PPRF
         ServerCount
         StorageCapacity
         ProcessTime_Mean
@@ -33,6 +35,10 @@ classdef Process < Node
         %    end
             buildPorts@Node(P);
         end %redefines{Node.buildPorts}
+        
+        function decorateNode(P)
+
+        end
         
         function setProcessTime(P)
             %Set the dialog parameters of the event-based random number generator block called ProcessTime. 

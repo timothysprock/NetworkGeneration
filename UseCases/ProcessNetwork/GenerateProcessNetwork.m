@@ -26,6 +26,9 @@ for ii = 1:nProcess
     end
 end
 
+A = digraph(P);
+plot(A);
+
 %Make arrival rate at center k
 lambda = zeros(1,nProcess);
 
@@ -46,3 +49,25 @@ try
 catch err
     rethrow(err)
 end
+
+%% Create ProcessNetwork Representation
+processSet(nProcess) = Process;
+
+for ii = 1:nProcess
+   processSet(ii).Node_ID = ii;
+   processSet(ii).Node_Name = strcat('Process_', num2str(ii));
+end
+%Get the Adjacency List from the digraph
+%A = digraph(P);
+edgeAdjList1 = table2array(A.Edges);
+
+%This code has the same effect without using the Graph tools
+edgeAdjList = zeros(nProcess^2,3);
+for ii = 1:nProcess
+   I = find(P(ii,:));
+   edgeAdjList((ii-1)*nProcess+1:(ii-1)*nProcess+length(I),:) = [ii*ones(length(I),1), I', P(ii,I)'];
+end
+edgeAdjList = edgeAdjList(edgeAdjList(:,1)~=0,:)
+
+%To DO: Adjacency List to EdgeSet
+
