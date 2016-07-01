@@ -6,6 +6,7 @@ classdef Network < handle
     %http://strategic.mit.edu/downloads.php?page=matlab_networks
     %http://www.levmuchnik.net/Content/Networks/ComplexNetworksPackage.html
     %http://www.ise.ncsu.edu/kay/matlog/MatlogRef.htm
+    %http://www.mathworks.com/help/matlab/graph-and-network-algorithms.html
     
     properties
         Model
