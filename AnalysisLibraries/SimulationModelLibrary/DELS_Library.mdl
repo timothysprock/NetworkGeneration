@@ -18,7 +18,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1296.0, 692.0]
+      Location		      [-8.0, 0.0, 1296.0, 692.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -27,7 +27,7 @@ Library {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[8]
+	Filter			[9]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -44,7 +44,7 @@ Library {
 	LoadSaveID		"0"
 	Extents			[1244.0, 525.0]
 	ZoomFactor		[1.0]
-	Offset			[831.0, -3.5]
+	Offset			[826.91606701279034, 4.3720799952458833]
       }
     }
   }
@@ -54,13 +54,13 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tsprock3"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jul 01 13:11:59 2016"
-  RTWModifiedTimeStamp	  389279495
+  LastModifiedDate	  "Tue Jul 05 17:50:31 2016"
+  RTWModifiedTimeStamp	  389641563
   ModifiedComment	  "tsprock3 -- Mon May 05 09:09:16 2014 -- Version 1.142\n"
   ModifiedHistory	  "tsprock3 -- Mon May 05 09:09:16 2014 -- Version 1.142\n\n\ntsprock3 -- Mon May 05 09:09:16 2014 -"
   "- Version 1.142\n\n\ntsprock3 -- Mon May 05 09:03:31 2014 -- Version 1.141\n\n\ntsprock3 -- Thu May 01 14:41:22 2014"
   " -- Version 1.140\n\n\n"
-  ModelVersionFormat	  "1.%<AutoIncrement:209>"
+  ModelVersionFormat	  "1.%<AutoIncrement:211>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1139,7 +1139,7 @@ Library {
   }
   System {
     Name		    "DELS_Library"
-    Location		    [-8, -8, 1288, 684]
+    Location		    [-8, 0, 1288, 692]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1153,7 +1153,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2283"
+    SIDHighWatermark	    "2291"
     Block {
       BlockType		      SubSystem
       Name		      "AssyProcess"
@@ -1484,7 +1484,7 @@ Library {
       Position		      [770, 864, 890, 976]
       ZOrder		      -2
       BackgroundColor	      "green"
-      LibraryVersion	      "1.208"
+      LibraryVersion	      "1.210"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2222,7 +2222,7 @@ Library {
       Position		      [600, 864, 720, 976]
       ZOrder		      -6
       BackgroundColor	      "green"
-      LibraryVersion	      "1.208"
+      LibraryVersion	      "1.210"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2235,7 +2235,7 @@ Library {
       Position		      [435, 864, 555, 976]
       ZOrder		      -7
       BackgroundColor	      "green"
-      LibraryVersion	      "1.208"
+      LibraryVersion	      "1.210"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2844,7 +2844,7 @@ Library {
       Variant		      off
       System {
 	Name			"Process"
-	Location		[-8, -8, 1288, 684]
+	Location		[-8, 0, 1288, 692]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2868,28 +2868,6 @@ Library {
 	  InputPortMap		  ""
 	  OutputPortMap		  ""
 	  NumberInputPorts	  "1"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  FIFOQueue
-	  Name			  "OUTQueue"
-	  SID			  "2258"
-	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [645, 152, 730, 208]
-	  ZOrder		  2
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  ""
-	  OutputPortMap		  ""
-	  Capacity		  "inf"
 	  Port {
 	    PortType		    2
 	    PortNumber		    1
@@ -2926,237 +2904,305 @@ Library {
 	  }
 	}
 	Block {
-	  BlockType		  FIFOQueue
-	  Name			  "ProcessQueue"
-	  SID			  "2141"
-	  Ports			  [0, 2, 0, 0, 0, 1, 1]
-	  Position		  [135, 107, 220, 163]
-	  ZOrder		  2
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o2,o3"
-	  Capacity		  "inf"
-	  StatAverageWait	  on
-	  StatAverageQueueLength  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  NServer
-	  Name			  "ProcessServer"
-	  SID			  "2142"
-	  Ports			  [1, 2, 0, 0, 0, 1, 1]
-	  Position		  [310, 63, 440, 187]
-	  ZOrder		  1
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  "u0"
-	  OutputPortMap		  "o0,o5"
-	  NumberOfServers	  "3"
-	  ServiceTimeFrom	  "Signal port t"
-	  StatNumberDeparted	  on
-	  StatUtilization	  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  EventBasedRandomNumber
-	  Name			  "ProcessTime"
-	  SID			  "2143"
-	  Ports			  [0, 1]
-	  Position		  [190, -30, 260, 20]
-	  ZOrder		  2
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o0"
-	  Distribution		  "Gaussian (normal)"
-	  minUnif		  "1"
-	  meanNorm		  "2"
-	  stdNorm		  "0.2"
-	  Seed			  "4276"
-	}
-	Block {
-	  BlockType		  EventBasedRandomNumber
-	  Name			  "probRoutingControl"
-	  SID			  "2283"
-	  Ports			  [0, 1]
-	  Position		  [645, 40, 715, 90]
-	  ZOrder		  8
-	  InputPortMap		  ""
-	  OutputPortMap		  "o0"
-	  Distribution		  "Arbitrary discrete"
-	  probVecDisc		  "[0 1]"
-	}
-	Block {
-	  BlockType		  ReadTimer
-	  Name			  "read_ProcessTimer"
-	  SID			  "2144"
-	  Ports			  [0, 1, 0, 0, 0, 1, 1]
-	  Position		  [510, 137, 595, 193]
-	  ZOrder		  1
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  ""
-	  OutputPortMap		  "o3"
-	  StatAverageTimeElapsed  on
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  SetAttribute
-	  Name			  "setRouting"
-	  SID			  "2282"
-	  Ports			  [1, 0, 0, 0, 0, 1, 1]
-	  Position		  [775, 140, 860, 195]
-	  ZOrder		  7
-	  InputPortMap		  "u0"
-	  OutputPortMap		  ""
-	  AttributeName		  "outputFlowNode"
-	  AttributeFrom		  "Signal port"
-	  EvaluatedAttributeValue "{ []}"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
-	  BlockType		  StartTimer
-	  Name			  "start_ProcessTimer"
-	  SID			  "2145"
+	  BlockType		  SubSystem
+	  Name			  "Process"
+	  SID			  "2284"
 	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [10, 108, 95, 162]
-	  ZOrder		  -1
-	  BackgroundColor	  "cyan"
-	  InputPortMap		  ""
-	  OutputPortMap		  ""
-	  TimerStartedOption	  "Restart"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  Position		  [-10, -72, 895, 242]
+	  ZOrder		  -12
+	  RequestExecContextInheritance	off
+	  Variant		  off
+	  System {
+	    Name		    "Process"
+	    Location		    [-8, 0, 1288, 692]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "80"
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "OUTQueue"
+	      SID		      "2258"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [905, 202, 990, 258]
+	      ZOrder		      2
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Capacity		      "inf"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "ProcessQueue"
+	      SID		      "2141"
+	      Ports		      [0, 2, 0, 0, 0, 1, 1]
+	      Position		      [395, 157, 480, 213]
+	      ZOrder		      2
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      ""
+	      OutputPortMap	      "o2,o3"
+	      Capacity		      "inf"
+	      StatAverageWait	      on
+	      StatAverageQueueLength  on
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      NServer
+	      Name		      "ProcessServer"
+	      SID		      "2142"
+	      Ports		      [1, 2, 0, 0, 0, 1, 1]
+	      Position		      [570, 113, 700, 237]
+	      ZOrder		      1
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      "u0"
+	      OutputPortMap	      "o0,o5"
+	      NumberOfServers	      "3"
+	      ServiceTimeFrom	      "Signal port t"
+	      StatNumberDeparted      on
+	      StatUtilization	      on
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      EventBasedRandomNumber
+	      Name		      "ProcessTime"
+	      SID		      "2143"
+	      Ports		      [0, 1]
+	      Position		      [450, 20, 520, 70]
+	      ZOrder		      2
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      ""
+	      OutputPortMap	      "o0"
+	      Distribution	      "Gaussian (normal)"
+	      minUnif		      "1"
+	      meanNorm		      "2"
+	      stdNorm		      "0.2"
+	      Seed		      "4276"
+	    }
+	    Block {
+	      BlockType		      EventBasedRandomNumber
+	      Name		      "probRoutingControl"
+	      SID		      "2283"
+	      Ports		      [0, 1]
+	      Position		      [905, 90, 975, 140]
+	      ZOrder		      8
+	      InputPortMap	      ""
+	      OutputPortMap	      "o0"
+	      Distribution	      "Arbitrary discrete"
+	      probVecDisc	      "[0 1]"
+	    }
+	    Block {
+	      BlockType		      ReadTimer
+	      Name		      "read_ProcessTimer"
+	      SID		      "2144"
+	      Ports		      [0, 1, 0, 0, 0, 1, 1]
+	      Position		      [770, 187, 855, 243]
+	      ZOrder		      1
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      ""
+	      OutputPortMap	      "o3"
+	      StatAverageTimeElapsed  on
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      SetAttribute
+	      Name		      "setRouting"
+	      SID		      "2282"
+	      Ports		      [1, 0, 0, 0, 0, 1, 1]
+	      Position		      [1035, 190, 1120, 245]
+	      ZOrder		      7
+	      InputPortMap	      "u0"
+	      OutputPortMap	      ""
+	      AttributeName	      "outputFlowNode"
+	      AttributeFrom	      "Signal port"
+	      EvaluatedAttributeValue "{ []}"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      StartTimer
+	      Name		      "start_ProcessTimer"
+	      SID		      "2145"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [270, 158, 355, 212]
+	      ZOrder		      -1
+	      BackgroundColor	      "cyan"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      TimerStartedOption      "Restart"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Job"
+	      SID		      "2290"
+	      Position		      [109, 178, 139, 192]
+	      ZOrder		      14
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Job"
+	      SID		      "2291"
+	      Position		      [1231, 223, 1261, 237]
+	      ZOrder		      15
+	      BlockMirror	      on
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      29
+	      SrcBlock		      "OUT_Job"
+	      SrcPort		      RConn1
+	      Points		      [-48, 0; 0, -10]
+	      DstBlock		      "setRouting"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      6
+	      SrcBlock		      "read_ProcessTimer"
+	      SrcPort		      RConn1
+	      DstBlock		      "OUTQueue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      5
+	      SrcBlock		      "ProcessQueue"
+	      SrcPort		      RConn1
+	      DstBlock		      "ProcessServer"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      4
+	      SrcBlock		      "start_ProcessTimer"
+	      SrcPort		      RConn1
+	      DstBlock		      "ProcessQueue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      3
+	      SrcBlock		      "ProcessServer"
+	      SrcPort		      RConn1
+	      DstBlock		      "read_ProcessTimer"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      28
+	      SrcBlock		      "IN_Job"
+	      SrcPort		      RConn1
+	      DstBlock		      "start_ProcessTimer"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      ZOrder		      1
+	      SrcBlock		      "ProcessTime"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, 100]
+	      DstBlock		      "ProcessServer"
+	      DstPort		      1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      ZOrder		      8
+	      SrcBlock		      "setRouting"
+	      SrcPort		      LConn1
+	      DstBlock		      "OUTQueue"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      ZOrder		      10
+	      SrcBlock		      "probRoutingControl"
+	      SrcPort		      1
+	      Points		      [33, 0; 0, 90]
+	      DstBlock		      "setRouting"
+	      DstPort		      1
+	    }
 	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
 	}
 	Line {
 	  LineType		  "Connection"
-	  ZOrder		  9
-	  SrcBlock		  "OUT_Job"
-	  SrcPort		  LConn1
-	  Points		  [-32, 0; 0, -10]
-	  DstBlock		  "setRouting"
-	  DstPort		  RConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  6
-	  SrcBlock		  "read_ProcessTimer"
-	  SrcPort		  RConn1
-	  DstBlock		  "OUTQueue"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  5
-	  SrcBlock		  "ProcessQueue"
-	  SrcPort		  RConn1
-	  DstBlock		  "ProcessServer"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  4
-	  SrcBlock		  "start_ProcessTimer"
-	  SrcPort		  RConn1
-	  DstBlock		  "ProcessQueue"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  3
-	  SrcBlock		  "ProcessServer"
-	  SrcPort		  RConn1
-	  DstBlock		  "read_ProcessTimer"
-	  DstPort		  LConn1
-	}
-	Line {
-	  LineType		  "Connection"
-	  ZOrder		  7
+	  ZOrder		  23
 	  SrcBlock		  "IN_Job"
 	  SrcPort		  RConn1
-	  Points		  [87, 0; 0, 50]
-	  DstBlock		  "start_ProcessTimer"
+	  DstBlock		  "Process"
 	  DstPort		  LConn1
 	}
 	Line {
-	  ZOrder		  1
-	  SrcBlock		  "ProcessTime"
-	  SrcPort		  1
-	  Points		  [15, 0; 0, 100]
-	  DstBlock		  "ProcessServer"
-	  DstPort		  1
-	}
-	Line {
 	  LineType		  "Connection"
-	  ZOrder		  8
-	  SrcBlock		  "setRouting"
+	  ZOrder		  24
+	  SrcBlock		  "OUT_Job"
 	  SrcPort		  LConn1
-	  DstBlock		  "OUTQueue"
+	  Points		  [-15, 0; 0, -95]
+	  DstBlock		  "Process"
 	  DstPort		  RConn1
-	}
-	Line {
-	  ZOrder		  10
-	  SrcBlock		  "probRoutingControl"
-	  SrcPort		  1
-	  Points		  [33, 0; 0, 90]
-	  DstBlock		  "setRouting"
-	  DstPort		  1
-	}
-	Annotation {
-	  SID			  "2281"
-	  Name			  "Process"
-	  Position		  [-8, -74, 897, 239]
-	  InternalMargins	  [0, 0, 0, 0]
-	  FixedHeight		  on
-	  FixedWidth		  on
-	  HorizontalAlignment	  "left"
-	  VerticalAlignment	  "top"
-	  ForegroundColor	  "[0.941176, 0.941176, 1.000000]"
-	  DropShadow		  on
-	  AnnotationType	  "area_annotation"
-	  ZOrder		  8
-	  FontSize		  12
 	}
       }
     }
@@ -3800,7 +3846,7 @@ Library {
       Position		      [1350, 687, 1525, 803]
       ZOrder		      -15
       BackgroundColor	      "cyan"
-      LibraryVersion	      "1.208"
+      LibraryVersion	      "1.210"
       SourceBlock	      "DELS_Library/SourceSinkProcess/Process"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -4000,7 +4046,7 @@ Library {
       Variant		      off
       System {
 	Name			"SourceSinkProcess"
-	Location		[687, 472, 1869, 1087]
+	Location		[-8, 0, 1288, 692]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200

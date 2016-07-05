@@ -41,11 +41,13 @@ classdef Node < handle
         end
         function addEdge(N, e)
             %Add edges incident to the Node to one of the two sets
+            %7/5/16: Switched from If/Elseif to if/if to accomodate self-edges
             if eq(e.Destination, N.Node_ID) == 1
                 N.INEdgeSet(end+1) = e;
                 e.Destination_Node = N;
                 N.EdgeTypeSet{end+1} = e.EdgeType;
-            elseif eq(e.Origin, N.Node_ID) == 1
+            end
+            if eq(e.Origin, N.Node_ID) == 1
                 N.OUTEdgeSet(end+1) = e;
                 e.Origin_Node = N;
                 N.EdgeTypeSet{end+1} = e.EdgeType;

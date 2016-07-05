@@ -25,25 +25,25 @@ classdef NodeFactory < handle
         
         function CreateNodes(NF)
            echelon_position = [0 0 0 0 0 0 0 0 0 0]; %[1 2 3 4 5 6 7 8 9 10]
-           for i = 1:length(NF.NodeSet)
+           for ii = 1:length(NF.NodeSet)
                
                %set position of new block relative to its echelon and
                %previous blocks in that echelon
-               position = [350*(NF.NodeSet(i).Echelon-1) echelon_position(NF.NodeSet(i).Echelon)  ...
-                   200+350*(NF.NodeSet(i).Echelon-1) echelon_position(NF.NodeSet(i).Echelon)+65+ 10*max(length(NF.NodeSet(i).INEdgeSet), length(NF.NodeSet(i).OUTEdgeSet))];
-               echelon_position(NF.NodeSet(i).Echelon) = echelon_position(NF.NodeSet(i).Echelon) + ...
-                   100+65+ 10*max(length(NF.NodeSet(i).INEdgeSet), length(NF.NodeSet(i).OUTEdgeSet));
+               position = [350*(NF.NodeSet(ii).Echelon-1) echelon_position(NF.NodeSet(ii).Echelon)  ...
+                   200+350*(NF.NodeSet(ii).Echelon-1) echelon_position(NF.NodeSet(ii).Echelon)+65+ 10*max(length(NF.NodeSet(ii).INEdgeSet), length(NF.NodeSet(ii).OUTEdgeSet))];
+               echelon_position(NF.NodeSet(ii).Echelon) = echelon_position(NF.NodeSet(ii).Echelon) + ...
+                   100+65+ 10*max(length(NF.NodeSet(ii).INEdgeSet), length(NF.NodeSet(ii).OUTEdgeSet));
                
-               NF.NodeSet(i).SimEventsPath = strcat(NF.Model, '/', NF.NodeSet(i).Node_Name);
-               NF.NodeSet(i).Model = NF.Model;
+               NF.NodeSet(ii).SimEventsPath = strcat(NF.Model, '/', NF.NodeSet(ii).Node_Name);
+               NF.NodeSet(ii).Model = NF.Model;
                
                %add the block
-               add_block(strcat(NF.Library, '/', NF.NodeSet(i).Type), NF.NodeSet(i).SimEventsPath, 'Position', position);
-               set_param(NF.NodeSet(i).SimEventsPath, 'LinkStatus', 'none');
+               add_block(strcat(NF.Library, '/', NF.NodeSet(ii).Type), NF.NodeSet(ii).SimEventsPath, 'Position', position);
+               set_param(NF.NodeSet(ii).SimEventsPath, 'LinkStatus', 'none');
                
                %NodeFactory is the Director
                %Node acts as a ConcreteBuilder
-               NF.Construct(NF.NodeSet(i));
+               NF.Construct(NF.NodeSet(ii));
          
            end
            
@@ -63,13 +63,13 @@ classdef NodeFactory < handle
             %ALLOCATE_EDGES Summary of this function goes here
             %   Detailed explanation goes here
 
-                for j = 1:length(NF.NodeSet)
+                for jj = 1:length(NF.NodeSet)
 
-                    for i = 1:length(EdgeSet)
-                        NF.NodeSet(j).addEdge(EdgeSet(i));
+                    for ii = 1:length(EdgeSet)
+                        NF.NodeSet(jj).addEdge(EdgeSet(ii));
                     end %for each edge
                     
-                    NF.NodeSet(j).assignPorts;
+                    NF.NodeSet(jj).assignPorts;
 
                 end %for each node
 

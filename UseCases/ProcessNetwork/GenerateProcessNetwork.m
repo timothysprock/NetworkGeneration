@@ -51,11 +51,16 @@ catch err
 end
 
 %% Create ProcessNetwork Representation
+clear processSet edgeSet PN NF PF EF
 processSet(nProcess) = Process;
 
 for ii = 1:nProcess
    processSet(ii).Node_ID = ii;
    processSet(ii).Node_Name = strcat('Process_', num2str(ii));
+   processSet(ii).Type = 'Process';
+   processSet(ii).ServerCount = m(ii);
+   processSet(ii).ProcessTime_Mean = S(ii);
+   processSet(ii).StorageCapacity = inf;
 end
 %Get the Adjacency List from the digraph
 %A = digraph(P);
@@ -67,7 +72,37 @@ for ii = 1:nProcess
    I = find(P(ii,:));
    edgeAdjList((ii-1)*nProcess+1:(ii-1)*nProcess+length(I),:) = [ii*ones(length(I),1), I', P(ii,I)'];
 end
-edgeAdjList = edgeAdjList(edgeAdjList(:,1)~=0,:)
+edgeAdjList = edgeAdjList(edgeAdjList(:,1)~=0,:);
 
-%To DO: Adjacency List to EdgeSet
+%Adjacency List to EdgeSet
+edgeSet(length(edgeAdjList)) = Edge;
 
+for ii = 1:length(edgeAdjList)
+    edgeSet(ii).Edge_ID = ii;
+    edgeSet(ii).Origin = edgeAdjList(ii,1);
+    edgeSet(ii).EdgeType = 'Job';
+    edgeSet(ii).Destination = edgeAdjList(ii,2);
+    %processSet(edgeSet(ii).Origin).addEdge(edgeSet(ii));
+    %processSet(edgeSet(ii).Destination).addEdge(edgeSet(ii));
+end
+
+PN = ProcessNetwork;
+
+PN.NodeSet = processSet;
+PN.EdgeSet = edgeSet;
+
+NF = NetworkFactory;
+NF.Model = 'ProcessNetworkSimulation';
+NF.modelLibrary = 'DELS_Library';
+
+%7/5/16: Removed ProcessFactory due to casting issue
+%PF = ProcessFactory(processSet); 
+
+PF = NodeFactory(processSet);
+EF = EdgeFactory(edgeSet);
+PF.allocate_edges(edgeSet);
+
+NF.addNodeFactory(PF);
+NF.addEdgeFactory(EF);
+
+NF.buildSimulation;
