@@ -1,3 +1,4 @@
+rng('default')
 nProd = 15;
 nProcess = 50;
 lengthProcessPlan = 200;
@@ -22,7 +23,8 @@ end
 rowSum = sum(P,2);
 for ii = 1:nProcess
     if rowSum(ii) > 0
-        P(ii,:) = P(ii,:)./rowSum(ii);
+        %Add the outflow rate to the rowSum; rows don't add up to 1
+        P(ii,:) = P(ii,:)./(rowSum(ii));% + (processPlan(:, end) == ii)'*arrivalRate);
     end
 end
 
@@ -41,7 +43,7 @@ end
 S = (0.05)*ones(1,nProcess);
 
 %Set Number of machines at each workstation
-m = 8*ones(1,nProcess);
+m = 10*ones(1,nProcess);
 
 try
     V = qnosvisits(P,lambda);
@@ -82,21 +84,64 @@ for ii = 1:length(edgeAdjList)
     edgeSet(ii).Origin = edgeAdjList(ii,1);
     edgeSet(ii).EdgeType = 'Job';
     edgeSet(ii).Destination = edgeAdjList(ii,2);
-    %processSet(edgeSet(ii).Origin).addEdge(edgeSet(ii));
-    %processSet(edgeSet(ii).Destination).addEdge(edgeSet(ii));
 end
 
-PN = ProcessNetwork;
+%7/5/16: Removed ProcessFactory due to casting issue
+%PF = ProcessFactory(processSet); 
 
-PN.NodeSet = processSet;
-PN.EdgeSet = edgeSet;
+%Map Arrivals and Departures to Source/Sink
+% 'DELS_Library/ArrivalProcess'
+totalArrivalRate = sum(arrivalRate);
+Parrival = zeros(nProcess, 1);
+for ii = 1:nProd
+    productArrivalRate = arrivalRate(ii);
+    Parrival(processPlan(ii,1)) = Parrival(processPlan(ii,1)) + productArrivalRate;
+end
+arrivalProcess = Process;
+arrivalProcess.Node_ID = nProcess+1;
+arrivalProcess.Node_Name = 'Arrival_Process';
+arrivalProcess.Type = 'ArrivalProcess';
+arrivalProcess.ServerCount = inf;
+arrivalProcess.ProcessTime_Mean = 1/totalArrivalRate;
+arrivalProcess.StorageCapacity = inf;
+arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;
+
+arrivalEdgeSet(nProcess) = Edge;
+for ii = 1:nProcess
+    arrivalEdgeSet(ii).Edge_ID = length(edgeSet)+ ii;
+    arrivalEdgeSet(ii).Origin = arrivalProcess.Node_ID;
+    arrivalEdgeSet(ii).EdgeType = 'Job';
+    arrivalEdgeSet(ii).Destination = processSet(ii).Node_ID;
+end
+edgeSet(end+1:end+length(arrivalEdgeSet))= arrivalEdgeSet;
+processSet(end+1) = arrivalProcess;
+
+departureProcess = Process;
+departureProcess.Node_ID = nProcess+2;
+departureProcess.Node_Name = 'Departure_Process';
+departureProcess.Type = 'DepartureProcess';
+departureProcess.ServerCount = inf;
+departureProcess.ProcessTime_Mean = 0;
+departureProcess.ProcessTime_Stdev = eps;
+departureProcess.StorageCapacity = inf;
+departureProcess.routingProbability = [0 0];
+
+rowSum = sum(P,2);
+I = find(rowSum < 1);
+departureEdgeSet(length(I)) = Edge;
+for ii = 1:length(I)
+    departureEdgeSet(ii).Edge_ID = length(edgeSet) + ii;
+    departureEdgeSet(ii).Origin =  processSet(I(ii)).Node_ID;
+    departureEdgeSet(ii).EdgeType = 'Job';
+    departureEdgeSet(ii).Destination = departureProcess.Node_ID;
+end
+
+edgeSet(end+1:end+length(departureEdgeSet))= departureEdgeSet;
+processSet(end+1) = departureProcess;
 
 NF = NetworkFactory;
 NF.Model = 'ProcessNetworkSimulation';
 NF.modelLibrary = 'DELS_Library';
-
-%7/5/16: Removed ProcessFactory due to casting issue
-%PF = ProcessFactory(processSet); 
 
 PF = NodeFactory(processSet);
 EF = EdgeFactory(edgeSet);
