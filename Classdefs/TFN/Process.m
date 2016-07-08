@@ -24,7 +24,7 @@ classdef Process < Node
     end
     
     methods
-%         function buildPorts(P)
+         function buildPorts(P)
 %            if strcmp(P.Type, 'AssyProcess')
 %                blockSimEventsPath = get_param(strcat(P.SimEventsPath, '/IN_Job'), 'Position');
 %                delete_block(strcat(P.SimEventsPath, '/IN_Job'));
@@ -34,8 +34,8 @@ classdef Process < Node
 %                delete_block(strcat(P.SimEventsPath, '/OUT_Job'));
 %               add_block('simeventslib/Routing/Replicate', strcat(P.SimEventsPath, '/OUT_Job'), 'Position', blockSimEventsPath, 'BackgroundColor', 'Cyan');
 %            end
-%             buildPorts@Node(P);
-%         end %redefines{Node.buildPorts}
+             buildPorts@Node(P);
+         end %redefines{Node.buildPorts}
         
         function buildTokenRouting(P)
             % Needs to be moved to a strategy class
@@ -59,7 +59,7 @@ classdef Process < Node
                ValueVector = strcat(ValueVector, ']');
                ProbabilityVector = strcat(ProbabilityVector, ']');
 
-               set_param(strcat(P.SimEventsPath, 'Process/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
+               set_param(strcat(P.SimEventsPath, '/Process/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
         end
         
         function decorateNode(P)
@@ -67,6 +67,7 @@ classdef Process < Node
             P.setServerCount;
             P.setTimer;
             P.setStorageCapacity;
+            P.buildTokenRouting;
         end
         
         function setProcessTime(P)

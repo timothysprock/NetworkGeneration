@@ -18,7 +18,7 @@ Library {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1.0, 1.0, 1278.0, 674.0]
+      Location		      [0.0, 1.0, 1024.0, 674.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -40,11 +40,11 @@ Library {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
-	Extents			[1226.0, 507.0]
-	ZoomFactor		[0.8]
-	Offset			[797.8779137950803, 72.553435464622169]
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"2355"
+	Extents			[972.0, 507.0]
+	ZoomFactor		[0.59999999999999987]
+	Offset			[-11.333333333333826, 0.0]
       }
     }
   }
@@ -54,13 +54,13 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tsprock3"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jul 07 20:27:40 2016"
-  RTWModifiedTimeStamp	  389821601
+  LastModifiedDate	  "Fri Jul 08 17:11:47 2016"
+  RTWModifiedTimeStamp	  389898705
   ModifiedComment	  "tsprock3 -- Mon May 05 09:09:16 2014 -- Version 1.142\n"
   ModifiedHistory	  "tsprock3 -- Mon May 05 09:09:16 2014 -- Version 1.142\n\n\ntsprock3 -- Mon May 05 09:09:16 2014 -"
   "- Version 1.142\n\n\ntsprock3 -- Mon May 05 09:03:31 2014 -- Version 1.141\n\n\ntsprock3 -- Thu May 01 14:41:22 2014"
   " -- Version 1.140\n\n\n"
-  ModelVersionFormat	  "1.%<AutoIncrement:218>"
+  ModelVersionFormat	  "1.%<AutoIncrement:223>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1139,8 +1139,8 @@ Library {
   }
   System {
     Name		    "DELS_Library"
-    Location		    [1, 1, 1279, 675]
-    Open		    on
+    Location		    [0, 1, 1024, 675]
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1153,7 +1153,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2364"
+    SIDHighWatermark	    "2365"
     Block {
       BlockType		      SubSystem
       Name		      "ArrivalProcess"
@@ -1166,7 +1166,7 @@ Library {
       Variant		      off
       System {
 	Name			"ArrivalProcess"
-	Location		[-8, 0, 1288, 692]
+	Location		[1, 1, 1279, 675]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1178,7 +1178,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"74"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  OutputSwitch
 	  Name			  "OUT_Job"
@@ -1210,11 +1210,12 @@ Library {
 	  Ports			  [0, 0, 0, 0, 0, 0, 1]
 	  Position		  [170, 160, 420, 270]
 	  ZOrder		  -11
+	  BackgroundColor	  "cyan"
 	  RequestExecContextInheritance	off
 	  Variant		  off
 	  System {
 	    Name		    "Process"
-	    Location		    [-8, 0, 1288, 692]
+	    Location		    [1, 1, 1279, 675]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1794,7 +1795,7 @@ Library {
       Position		      [770, 864, 890, 976]
       ZOrder		      -2
       BackgroundColor	      "green"
-      LibraryVersion	      "1.217"
+      LibraryVersion	      "1.221"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2532,7 +2533,7 @@ Library {
       Position		      [600, 864, 720, 976]
       ZOrder		      -6
       BackgroundColor	      "green"
-      LibraryVersion	      "1.217"
+      LibraryVersion	      "1.221"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2545,7 +2546,7 @@ Library {
       Position		      [435, 864, 555, 976]
       ZOrder		      -7
       BackgroundColor	      "green"
-      LibraryVersion	      "1.217"
+      LibraryVersion	      "1.221"
       SourceBlock	      "DELS_Library/Node"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2562,7 +2563,7 @@ Library {
       Variant		      off
       System {
 	Name			"DepartureProcess"
-	Location		[-8, 0, 1288, 692]
+	Location		[0, 1, 1024, 675]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -2574,22 +2575,30 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"60"
+	ZoomFactor		"100"
 	Block {
-	  BlockType		  EntityCombiner
+	  BlockType		  PathCombiner
 	  Name			  "IN_Job"
-	  SID			  "2325"
-	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [-275, 116, -175, 174]
-	  ZOrder		  17
+	  SID			  "2365"
+	  Ports			  [0, 0, 0, 0, 0, 3, 1]
+	  Position		  [-285, 118, -185, 172]
+	  ZOrder		  18
 	  BackgroundColor	  "cyan"
 	  InputPortMap		  ""
 	  OutputPortMap		  ""
-	  NumberInputPorts	  "1"
-	  RetainComponentEntities off
 	  Port {
 	    PortType		    2
 	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    2
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    3
 	    ConnectionType	    "SimEventsDDv2.SEPortIn"
 	  }
 	  Port {
@@ -2605,12 +2614,13 @@ Library {
 	  Ports			  [0, 0, 0, 0, 0, 1]
 	  Position		  [-30, 89, 280, 201]
 	  ZOrder		  -11
+	  BackgroundColor	  "cyan"
 	  RequestExecContextInheritance	off
 	  Variant		  off
 	  System {
 	    Name		    "Process"
-	    Location		    [-8, 0, 1288, 692]
-	    Open		    off
+	    Location		    [0, 1, 1024, 675]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -2635,7 +2645,7 @@ Library {
 	      SourceType	      "Compare To Constant"
 	      ContentPreviewEnabled   off
 	      relop		      ">="
-	      const		      "1000"
+	      const		      "100000"
 	      OutDataTypeStr	      "boolean"
 	      ZeroCross		      on
 	    }
@@ -2781,6 +2791,7 @@ Library {
 	      InputPortMap	      ""
 	      OutputPortMap	      "o2"
 	      TimerTag		      "T_LHS_BU_1"
+	      TimerModeOption	      "Ignore"
 	      StatTimeElapsed	      on
 	      Port {
 		PortType		2
@@ -2864,7 +2875,7 @@ Library {
 	      BlockType		      PMIOPort
 	      Name		      "IN_Job"
 	      SID		      "2359"
-	      Position		      [19, 163, 49, 177]
+	      Position		      [20, 163, 50, 177]
 	      ZOrder		      16
 	      Port		      "1"
 	      Side		      "Left"
@@ -2960,7 +2971,7 @@ Library {
 	}
 	Line {
 	  LineType		  "Connection"
-	  ZOrder		  20
+	  ZOrder		  21
 	  SrcBlock		  "IN_Job"
 	  SrcPort		  RConn1
 	  DstBlock		  "Process"
@@ -3572,7 +3583,7 @@ Library {
       Variant		      off
       System {
 	Name			"Process"
-	Location		[-8, 0, 1288, 692]
+	Location		[1, 1, 1279, 675]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -3584,7 +3595,7 @@ Library {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  PathCombiner
 	  Name			  "IN_Job"
@@ -3612,7 +3623,7 @@ Library {
 	  Name			  "OUT_Job"
 	  SID			  "869"
 	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [955, 152, 1055, 208]
+	  Position		  [330, 47, 430, 103]
 	  ZOrder		  6
 	  BackgroundColor	  "cyan"
 	  InputPortMap		  ""
@@ -3636,8 +3647,9 @@ Library {
 	  Name			  "Process"
 	  SID			  "2284"
 	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [-10, -72, 895, 242]
+	  Position		  [-40, 15, 190, 135]
 	  ZOrder		  -12
+	  BackgroundColor	  "cyan"
 	  RequestExecContextInheritance	off
 	  Variant		  off
 	  System {
@@ -3920,6 +3932,7 @@ Library {
 	  ZOrder		  23
 	  SrcBlock		  "IN_Job"
 	  SrcPort		  RConn1
+	  Points		  [62, 0; 0, -10]
 	  DstBlock		  "Process"
 	  DstPort		  LConn1
 	}
@@ -3928,7 +3941,6 @@ Library {
 	  ZOrder		  24
 	  SrcBlock		  "OUT_Job"
 	  SrcPort		  LConn1
-	  Points		  [-15, 0; 0, -95]
 	  DstBlock		  "Process"
 	  DstPort		  RConn1
 	}
@@ -4574,7 +4586,7 @@ Library {
       Position		      [1350, 687, 1525, 803]
       ZOrder		      -15
       BackgroundColor	      "cyan"
-      LibraryVersion	      "1.217"
+      LibraryVersion	      "1.221"
       SourceBlock	      "DELS_Library/SourceSinkProcess/Process"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
