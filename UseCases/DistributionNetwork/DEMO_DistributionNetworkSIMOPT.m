@@ -64,7 +64,7 @@ for ii = 1:length(distributionNetworkSet)
     networkFactorySet(ii).buildSimulation;
     
     %TO DO: Transition GA opt to a distributionNetwork based interface
-    %distributionNetworkSet(ii).resourceSol = MultiGA_Distribution(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, 1000*ones(length(distributionNetworkSet(ii).depotNodeSet),1), [], 'true');
+    %distributionNetworkSet(ii).resourceSolution = MultiGA_Distribution(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, 1000*ones(length(distributionNetworkSet(ii).depotNodeSet),1), [], 'true');
     clear MultiGA_Distribution tf1 df1 cf1 ef1;
     strcat('complete: ', num2str(ii))
 end
@@ -87,16 +87,16 @@ end
 for ii = 1:length(distributionNetworkSet)
     networkFactorySet(ii).buildSimulation;
 
-    %distributionNetworkSet(ii).policySol = Distribution_Pareto(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).resourceSol, 1000*ones(length(distributionNetworkSet(ii).resourceSol(1,:)),1));
+    %distributionNetworkSet(ii).policySolution = Distribution_Pareto(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).resourceSolution, 1000*ones(length(distributionNetworkSet(ii).resourceSolution(1,:)),1));
     %save GenerateFamily.mat;
     strcat('complete: ', num2str(ii))
 end
 
 %% Pareto Analysis
 
-TravelDist = [reshape(distributionNetworkSet(1).policySol(:,:,1), [],1); reshape(distributionNetworkSet(2).policySol(:,:,1), [],1); reshape(distributionNetworkSet(3).policySol(:,:,1), [],1); reshape(distributionNetworkSet(4).policySol(:,:,1), [],1); reshape(distributionNetworkSet(5).policySol(:,:,1), [],1)];
-ResourceInvestment =  [reshape(distributionNetworkSet(1).policySol(:,:,3), [],1); reshape(distributionNetworkSet(2).policySol(:,:,3), [],1); reshape(distributionNetworkSet(3).policySol(:,:,3), [],1); reshape(distributionNetworkSet(4).policySol(:,:,3), [],1); reshape(distributionNetworkSet(5).policySol(:,:,3), [],1)];
-ServiceLevel =  1.-[reshape(distributionNetworkSet(1).policySol(:,:,2), [],1); reshape(distributionNetworkSet(2).policySol(:,:,2), [],1); reshape(distributionNetworkSet(3).policySol(:,:,2), [],1); reshape(distributionNetworkSet(4).policySol(:,:,2), [],1); reshape(distributionNetworkSet(5).policySol(:,:,2), [],1)];
+TravelDist = [reshape(distributionNetworkSet(1).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(2).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(3).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(4).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(5).policySolution(:,:,1), [],1)];
+ResourceInvestment =  [reshape(distributionNetworkSet(1).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(2).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(3).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(4).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(5).policySolution(:,:,3), [],1)];
+ServiceLevel =  1.-[reshape(distributionNetworkSet(1).policySolution(:,:,2), [],1); reshape(distributionNetworkSet(2).policySolution(:,:,2), [],1); reshape(distributionNetworkSet(3).policySolution(:,:,2), [],1); reshape(distributionNetworkSet(4).policySolution(:,:,2), [],1); reshape(distributionNetworkSet(5).policySolution(:,:,2), [],1)];
 paretoI = paretoGroup([TravelDist, ResourceInvestment, ServiceLevel]);
 
 scatter3( TravelDist(paretoI), ResourceInvestment(paretoI), 1.-ServiceLevel(paretoI));

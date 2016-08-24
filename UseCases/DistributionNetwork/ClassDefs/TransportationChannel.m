@@ -1,6 +1,8 @@
 classdef TransportationChannel < Node
     %TRANSPORTATION_CHANNEL Summary of this class goes here
     %   Detailed explanation goes here
+    %Note: Older versions of the instance data have the class name as
+    %Transportation_Channel
     
     properties
         TravelDistance = 0 %{redefines: Weight}
@@ -16,6 +18,11 @@ classdef TransportationChannel < Node
             end
                 TC.setTravelTime;
                 TC.buildStatusMetric; 
+        end
+        
+        function buildPorts(TC)
+            %Override Node's method to buildPorts; in this use case, the
+            %Transportation Channel comes pre-built with its ports complete
         end
         
         function EdgeSet = createEdgeSet(TC, DepotSet)
