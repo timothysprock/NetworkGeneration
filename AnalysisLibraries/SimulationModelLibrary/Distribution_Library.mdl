@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.62"
+    ComputedModelVersion    "1.63"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -51,11 +51,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkTopLevel"
-	LoadSaveID		"0"
+	ViewObjType		"SimulinkSubsys"
+	LoadSaveID		"251"
 	Extents			[972.0, 501.0]
 	ZoomFactor		[1.0]
-	Offset			[92.0, 442.0]
+	Offset			[0.0, 0.0]
       }
     }
   }
@@ -65,9 +65,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tsprock3"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Apr 27 12:53:23 2016"
-  RTWModifiedTimeStamp	  383662378
-  ModelVersionFormat	  "1.%<AutoIncrement:62>"
+  LastModifiedDate	  "Wed Aug 24 09:36:09 2016"
+  RTWModifiedTimeStamp	  393932167
+  ModelVersionFormat	  "1.%<AutoIncrement:63>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1173,7 +1173,7 @@ Model {
   System {
     Name		    "Distribution_Library"
     Location		    [0, 0, 1024, 676]
-    Open		    on
+    Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1184,7 +1184,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "60"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "320"
     Block {
@@ -3480,8 +3480,8 @@ Model {
       Variant		      off
       System {
 	Name			"Depot_probflow"
-	Location		[620, 52, 2153, 1672]
-	Open			off
+	Location		[0, 0, 1024, 676]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3569,15 +3569,14 @@ Model {
 	  BlockType		  OutputSwitch
 	  Name			  "OUT_Resource"
 	  SID			  "259"
-	  Ports			  [0, 1, 0, 0, 0, 1, 4]
-	  Position		  [825, 39, 925, 101]
+	  Ports			  [0, 0, 0, 0, 0, 1, 4]
+	  Position		  [825, 41, 925, 104]
 	  ZOrder		  -2
 	  InputPortMap		  ""
-	  OutputPortMap		  "o3"
+	  OutputPortMap		  ""
 	  NumberOutputPorts	  "4"
 	  SwitchingCriterion	  "Round robin"
 	  InitialSeed		  "57769"
-	  StatLastDeparturePort	  on
 	  Port {
 	    PortType		    2
 	    PortNumber		    1
@@ -3880,6 +3879,7 @@ Model {
 	  ZOrder		  3
 	  SrcBlock		  "Resource_Pool"
 	  SrcPort		  LConn1
+	  Points		  [215, 0]
 	  DstBlock		  "OUT_Resource"
 	  DstPort		  LConn1
 	}
