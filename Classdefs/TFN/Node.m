@@ -41,11 +41,15 @@ classdef Node < handle
         end
         function addEdge(N, e)
             %Add edges incident to the Node to one of the two sets
+            %7/5/16: Switched from If/Elseif to if/if to accomodate self-edges
             if eq(e.Destination, N.Node_ID) == 1
+            %if e.Destination == N.Node_ID
                 N.INEdgeSet(end+1) = e;
                 e.Destination_Node = N;
                 N.EdgeTypeSet{end+1} = e.EdgeType;
-            elseif eq(e.Origin, N.Node_ID) == 1
+            end
+            if eq(e.Origin, N.Node_ID) == 1
+            %if e.Origin == N.Node_ID
                 N.OUTEdgeSet(end+1) = e;
                 e.Origin_Node = N;
                 N.EdgeTypeSet{end+1} = e.EdgeType;
@@ -107,54 +111,57 @@ classdef Node < handle
         end %assignPorts function
 
         function buildPorts(N)
+            % 7/8/16 -- Fix bug to handle nodes with zero ports in or out,
+            % e.g. source or sink nodes.
             
             for i = 1:length(N.EdgeTypeSet)
                 %IN
-                try %Change IN_EdgeType Path Combiner Port Count
-                    INset = findobj(N.INEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
-                    set_param(strcat(N.SimEventsPath, '/IN_', N.PortSet(i).Type), 'NumberInputPorts', num2str(length(INset)));
-                catch err
-                    continue
-                end
-                for j = 1:length(INset) %For Each edge in INset build port
-                    try
-                        Port = INset(j).Destination_Port;
-                        Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Port_Name);
-                        add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
-                        set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
-                        set_param(Port.SimEventsPath, 'Side', Port.Side);
-                        Port.Set_Position
-                        add_line(strcat(N.Model, '/', N.Node_Name), strcat(Port.Direction, '_', Port.Type, '/LConn', num2str(j)), ...
-                        strcat(Port.Port_Name,'/RConn1'), 'autorouting', 'on');
-                    catch err
-                        continue
+                INset = findobj(N.INEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
+                if isempty(INset) == 0
+                        %INset = findobj(N.INEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
+                        set_param(strcat(N.SimEventsPath, '/IN_', N.PortSet(i).Type), 'NumberInputPorts', num2str(length(INset)));
+ 
+                    for j = 1:length(INset) %For Each edge in INset build port
+                        try
+                            Port = INset(j).Destination_Port;
+                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Port_Name);
+                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
+                            set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
+                            set_param(Port.SimEventsPath, 'Side', Port.Side);
+                            Port.Set_Position
+                            add_line(strcat(N.Model, '/', N.Node_Name), strcat(Port.Direction, '_', Port.Type, '/LConn', num2str(j)), ...
+                            strcat(Port.Port_Name,'/RConn1'), 'autorouting', 'on');
+                        catch err
+                            continue
+                        end
                     end
                 end
                 
+                
                 %OUT
-                try %Change OUT_EdgeType Switch Port Count
-                    OUTset = findobj(N.OUTEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
+                OUTset = findobj(N.OUTEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
+                if isempty(OUTset) == 0
                     set_param(strcat(N.SimEventsPath, '/OUT_', N.PortSet(i).Type), 'NumberOutputPorts', num2str(length(OUTset)));
-                catch err
-                    continue
-                end
-                for j = 1:length(OUTset) %For Each edge in OUTset build port
-                    try
-                        Port = OUTset(j).Origin_Port;
-                        Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Port_Name);
-                        add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
-                        set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
-                        set_param(Port.SimEventsPath, 'Side', Port.Side);
-                        Port.Set_Position
-                        add_line(strcat(N.Model, '/', N.Node_Name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(j)), ...
-                        strcat(Port.Port_Name,'/RConn1'), 'autorouting', 'on');
-                    catch err
-                        continue
-                    end
-                end
-            end
+               
+                    for j = 1:length(OUTset) %For Each edge in OUTset build port
+                        try
+                            Port = OUTset(j).Origin_Port;
+                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Port_Name);
+                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
+                            set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
+                            set_param(Port.SimEventsPath, 'Side', Port.Side);
+                            Port.Set_Position
+                            add_line(strcat(N.Model, '/', N.Node_Name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(j)), ...
+                            strcat(Port.Port_Name,'/RConn1'), 'autorouting', 'on');
+                        catch err
+                            rethrow(err)
+                            %continue
+                        end
+                    end 
+                end %End: Check if OUTset is empty
+            end %End: For each type of Edge
 
-        end %Role: ConcreteBuilder
+        end %Role: ConcreteBuilder of Ports
         
     end %methods
     

@@ -6,16 +6,13 @@ classdef ProcessFactory < NodeFactory
     end
     
     methods (Access = public)
-        function obj = ProcessFactory
-           obj.Type = 'Process'; 
+        function obj = ProcessFactory(processSet)
+           obj@NodeFactory(processSet);
+
+           
         end %Constructor
         
-        function setNodeSet(PF)
-            %Creates NodeSet for ProcessFactory
-            sqlstring = 'SELECT * FROM ProcessTable ORDER BY ProcessTable.Node_ID;';
-            PF.NodeSet = PF.parse_nodes(sqlstring);
-        end %redefines{NodeFactory.setNodeSet}
-        
+      
         function Construct(PF, P)
             %Director Role: ProcessFactory switches from ConcreteFactory to Director pattern; 
             %Process class is configured as ConcreteBuilder. This ConcreteBuilder is responsible for

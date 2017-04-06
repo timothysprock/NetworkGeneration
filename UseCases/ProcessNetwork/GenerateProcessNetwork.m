@@ -1,73 +1,59 @@
+
+%% Make Random Process Network
+%Instance Parameters
+rng('default')
 nProd = 15;
 nProcess = 50;
-lengthProcessPlan = 200;
+lengthProcessPlan = 20;
 
-processPlan = randi(nProcess, nProd, lengthProcessPlan);
+PN = ProcessNetwork;
 
+PN.processPlanSet = randi(nProcess, nProd, lengthProcessPlan);
+productArrivalRate = randi([1, 10],nProd);
+PN.productArrivalRate = productArrivalRate(1:nProd,1);
+clear productArrivalRate
 
-arrivalRate = randi([40, 100],nProd);
-arrivalRate = arrivalRate(1:nProd,1);
+%Map the process plan and product arrival rate to the probability
+%transition matrix
+PN.probabilityTransitionMatrix = mapProcessPlan2ProbMatrix(PN.processPlanSet, PN.productArrivalRate);
 
-P = zeros(nProcess);
+%Map the process plan and product arrival rate to the arrival rate to each
+%process center
+PN.processArrivalRate = mapProcessPlan2ArrivalRate(PN.processPlanSet, PN.productArrivalRate);
 
-% Add Flow Rates to Prob Matrix
-for ii = 1:nProd
-    flowRate = arrivalRate(ii);
-   for jj = 1:lengthProcessPlan-1
-       P(processPlan(ii,jj), processPlan(ii,jj+1)) = flowRate;
-   end
-end
-
-%Make Prob Matrix Stochastic
-rowSum = sum(P,2);
-for ii = 1:nProcess
-    if rowSum(ii) > 0
-        P(ii,:) = P(ii,:)./rowSum(ii);
-    end
-end
-
-A = digraph(P);
-plot(A);
-
-%Make arrival rate at center k
-lambda = zeros(1,nProcess);
-
-for ii = 1:nProd
-    lambda(processPlan(ii,1)) = lambda(processPlan(ii,1))+ arrivalRate(ii);
-end
-
-
-%Make service rate
-S = (0.05)*ones(1,nProcess);
-
-%Set Number of machines at each workstation
-m = 8*ones(1,nProcess);
+%Make service time at process node k between 0.05 and 0.25
+serviceTime = randi([5, 25],nProcess)/100;
+PN.serviceTime = serviceTime(1, :);
+clear serviceTime
 
 try
-    V = qnosvisits(P,lambda);
-    [U, R, Q, X] = qnopen(sum(lambda), S, V, m);
+    avgNoVisits = qnosvisits(PN.probabilityTransitionMatrix, PN.processArrivalRate);   
+    %Set Number of machines at each workstation
+    PN.machineCount = ceil(sum(PN.processArrivalRate) * PN.serviceTime .* avgNoVisits / 0.95);
+    [Util, avgResponseTime, avgNoRequests, Throughput] = qnopen(sum(PN.processArrivalRate), PN.serviceTime, avgNoVisits, PN.machineCount);
 catch err
     rethrow(err)
 end
 
+%% Visualize the Process Network
+PN.plot;
 %% Create ProcessNetwork Representation
-processSet(nProcess) = Process;
+clear NF PF EF
 
-for ii = 1:nProcess
-   processSet(ii).Node_ID = ii;
-   processSet(ii).Node_Name = strcat('Process_', num2str(ii));
-end
-%Get the Adjacency List from the digraph
-%A = digraph(P);
-edgeAdjList1 = table2array(A.Edges);
+PN.matrix2Network;
 
-%This code has the same effect without using the Graph tools
-edgeAdjList = zeros(nProcess^2,3);
-for ii = 1:nProcess
-   I = find(P(ii,:));
-   edgeAdjList((ii-1)*nProcess+1:(ii-1)*nProcess+length(I),:) = [ii*ones(length(I),1), I', P(ii,I)'];
-end
-edgeAdjList = edgeAdjList(edgeAdjList(:,1)~=0,:)
+NF = NetworkFactory;
+NF.Model = 'ProcessNetworkSimulation';
+NF.modelLibrary = 'DELS_Library';
 
-%To DO: Adjacency List to EdgeSet
+PF = NodeFactory(PN.ProcessSet);
+EF = EdgeFactory(PN.EdgeSet);
+PF.allocate_edges(PN.EdgeSet);
 
+NF.addNodeFactory(PF);
+NF.addEdgeFactory(EF);
+
+NF.buildSimulation;
+
+% utilDirector = MetricDirector;
+% utilDirector.ConstructMetric(processSet, 'Utilization');
